@@ -1,8 +1,8 @@
-Fixed issues are: #
+### Fixed issues are:
 
 -
 
-Related pull requests are: #
+### Related pull requests are:
 
 -
 
