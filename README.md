@@ -6,15 +6,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm install`
+
+Before you begin working on this project, you must install all of the dependencies using `npm install`
+
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Git and GitHub Workflow
+![indir (4)](https://user-images.githubusercontent.com/20026295/204996353-f14cb5f6-c983-4070-8ce4-0175f27f74e0.png)
 
-## Git and GitHub Workflow
+
 
 ## Project Folder Structure
 
@@ -54,15 +58,13 @@ It will only store the global hooks that are used across multiple pages.
 
 ### pages
 
-This folder should contain one folder for each page in our application. Inside of those page specific folders should be a single root file that is your page `(generally index.js)` alongside all the files that are only applicable to that page.
+This folder should contain one folder for each page in our application. Inside of those page specific folders should be a single root file that is our page `(generally index.js)` alongside all the files that are only applicable to that page.
 
 ### utils
 
 This folder is for storing all utility functions such as formatters.
 
 ## Dependencies
-
-Before you begin working on this project, you must install all of the dependencies listed below using `npm install`
 
 - **React:** Core library for developing Front-end applications.
 
