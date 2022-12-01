@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Bazaar React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -14,33 +14,60 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+## Git and GitHub Workflow
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Folder Structure
 
-### `npm run build`
+```
+src
+├── config
+├── assests
+├── components
+├── context
+├── hooks
+├── pages
+├── utils
+├── App.tsx
+├── index.tsx
+└── react-app-env.d.ts
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### config
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This folder is for storing all config files for backend interactions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### assets
 
-### `npm run eject`
+The assets folder contains all images, css files, font files, etc. for our project. Pretty much anything that isn't code related will be stored in this folder.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### components
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`components` folder is further broken down into subfolders. These subfolders are really useful since they help keep our components organized into different sections instead of just being one massive blob of components.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### context
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The `context` folder stores all our React context files that are used across multiple pages.
 
-## Learn More
+### hooks
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+It will only store the global hooks that are used across multiple pages.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### pages
+
+This folder should contain one folder for each page in our application. Inside of those page specific folders should be a single root file that is your page `(generally index.js)` alongside all the files that are only applicable to that page.
+
+### utils
+
+This folder is for storing all utility functions such as formatters.
+
+## Dependencies
+
+Before you begin working on this project, you must install all of the dependencies listed below using `npm install`
+
+- **React:** Core library for developing Front-end applications.
+
+- **styled-components:** `styled-components` allows you to write actual CSS code to style your components.
+
+- **TypeScript:** TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+
+- **react-router-dom:** React Router is a standard library for routing in React. It enables the navigation among views of various components in a React Application, allows changing the browser URL, and keeps the UI in sync with the URL.
