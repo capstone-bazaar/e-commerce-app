@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Bazaar React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -6,41 +6,70 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm install`
+
+Before you begin working on this project, you must install all of the dependencies using `npm install`
+
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Git and GitHub Workflow
+![indir (4)](https://user-images.githubusercontent.com/20026295/204996353-f14cb5f6-c983-4070-8ce4-0175f27f74e0.png)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Project Folder Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src
+├── config
+├── assests
+├── components
+├── context
+├── hooks
+├── pages
+├── utils
+├── App.tsx
+├── index.tsx
+└── react-app-env.d.ts
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### config
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This folder is for storing all config files for backend interactions.
 
-### `npm run eject`
+### assets
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The assets folder contains all images, css files, font files, etc. for our project. Pretty much anything that isn't code related will be stored in this folder.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`components` folder is further broken down into subfolders. These subfolders are really useful since they help keep our components organized into different sections instead of just being one massive blob of components.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### context
 
-## Learn More
+The `context` folder stores all our React context files that are used across multiple pages.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### hooks
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+It will only store the global hooks that are used across multiple pages.
+
+### pages
+
+This folder should contain one folder for each page in our application. Inside of those page specific folders should be a single root file that is our page `(generally index.js)` alongside all the files that are only applicable to that page.
+
+### utils
+
+This folder is for storing all utility functions such as formatters.
+
+## Dependencies
+
+- **React:** Core library for developing Front-end applications.
+
+- **styled-components:** `styled-components` allows you to write actual CSS code to style your components.
+
+- **TypeScript:** TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+
+- **react-router-dom:** React Router is a standard library for routing in React. It enables the navigation among views of various components in a React Application, allows changing the browser URL, and keeps the UI in sync with the URL.
