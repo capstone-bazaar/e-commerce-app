@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier", "no-loops"],
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "no-console": 2,
+    "no-loops/no-loops": 2,
+    "no-const-assign": 2,
+    "no-var": "error",
+    "eqeqeq": "error",
+    "no-duplicate-imports": ["error", { "includeExports": true }]
+  }
+}
