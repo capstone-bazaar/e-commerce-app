@@ -1,43 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Input } from '../components/Input/Input';
 import { LOGIN } from '../queries/user';
 import './App.css';
-
-const Container = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  width: 350px;
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 6);
-  border-radius: 10px;
-  padding: 10px;
-`;
-const Wrapper = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-`;
-const Label = styled.label``;
-const Button = styled.button``;
-const Input = styled.input`
-  border: 0;
-  border-bottom: 2px solid #9e9e9e;
-  outline: none;
-  transition: 0.2s ease-in-out;
-  box-sizing: border-box;
-`;
-const Wrapper2 = styled.div`
-  display: flex;
-`;
-const Text = styled.label`
-  text-align: start;
-  font-family: 'Roboto';
-`;
+import { Button } from '../components/Buttons/button';
+import { Container, ContainerBox, CheckboxDiv } from '../components/container';
+import { Label } from '../components/Labels/label';
 
 export default function Login() {
   const [login, { data, loading, error }] = useMutation(LOGIN);
@@ -57,40 +26,39 @@ export default function Login() {
   };
 
   return (
-    <Wrapper>
+    <ContainerBox>
       <Container>
-        <Label>Welcome!</Label>
-        <Label>Please for the login enter e-mail and password </Label>
-        <Text className="__label">E-mail</Text>
+        <h1>Welcome!</h1>
+        <p>Please for the login enter e-mail and password </p>
+        <Label className="Label">E-mail</Label>
         <Input
           placeholder={'Enter the email'}
           type={'text'}
           id="email"
-          className="__input"
+          className="text-input"
           name={'email'}
-          onChange={(event) => {
+          onChange={(event: React.FormEvent<HTMLInputElement>) => {
             handleChangeLoginData(event);
           }}
         ></Input>
-        <Text>Password</Text>
+        <Label>Password</Label>
         <Input
           placeholder={'Enter your password'}
           type={'password'}
           name={'password'}
-          onChange={(event) => {
+          onChange={(event: React.FormEvent<HTMLInputElement>) => {
             handleChangeLoginData(event);
           }}
         ></Input>
-
-        <Wrapper2>
+        <CheckboxDiv>
           <Label>Remember Me</Label>
-          <Input type={'checkbox'}></Input>
-        </Wrapper2>
+          <input type={'checkbox'}></input>
+        </CheckboxDiv>
         <Button type={'submit'} onClick={handleOnClick}>
-          Login
+          LOGIN
         </Button>
         <p>Dont have an account click here</p>
       </Container>
-    </Wrapper>
+    </ContainerBox>
   );
 }
