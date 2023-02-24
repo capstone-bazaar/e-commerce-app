@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 6);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
   padding: 25px;
   gap: 5px;
@@ -16,9 +16,11 @@ export const ContainerBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  padding-top: 60px;
 `;
 
 export const CheckboxDiv = styled.div`
   display: flex;
+  align-items: center;
+  margin-top: 15px;
 `;

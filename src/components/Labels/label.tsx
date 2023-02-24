@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Label = styled.label`
   text-align: start;
-  font-family: 'Roboto';
   color: black;
+  font-weight: 600;
+  padding-top: 15px;
 `;

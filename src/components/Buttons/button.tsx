@@ -8,4 +8,8 @@ export const Button = styled.button`
   border-radius: 5px;
   font-weight: bold;
   font-size: 1.1rem;
+
+  &:disabled {
+    background-color: #c5c5c5;
+  }
 `;
