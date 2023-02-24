@@ -9,7 +9,12 @@ interface ContextInterface {
   logout: () => void;
 }
 
-const AuthContext = createContext<ContextInterface | null>(null);
+/* eslint-disable */
+const AuthContext = createContext<ContextInterface>({
+  isAuth: false,
+  login: () => {},
+  logout: () => {},
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean>(
