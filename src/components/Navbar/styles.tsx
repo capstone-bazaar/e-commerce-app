@@ -10,11 +10,15 @@ import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-  background: #63d471;
+  background: white;
   height: 85px;
   display: flex;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
+  padding: 5px;
+  padding-left: 10px;
+  
   z-index: 12;
   /* Third Nav */
   /* justify-content: flex-start; */
@@ -61,18 +65,6 @@ white-space: nowrap; */
   }
 `;
 
-export const NavBtn = styled.nav`
-  display: flex;
-  align-items: center;
-  margin-right: 24px;
-  /* Third Nav */
-  /* justify-content: flex-end;
-width: 100vw; */
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
   background: #808080;
@@ -83,7 +75,7 @@ export const NavBtnLink = styled(Link)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  position: fixed;
+
   /* Second Nav */
   margin-left: 24px;
   &:hover {
