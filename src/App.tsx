@@ -1,12 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './app.css';
+import { AuthProvider } from './context/AuthContext';
+import { PrivateRoute } from './routes/PrivateRoute';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route></Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route element={<PrivateRoute />}></Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
