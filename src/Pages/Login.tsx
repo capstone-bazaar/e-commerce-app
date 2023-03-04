@@ -2,14 +2,26 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Input } from '../components/Input/Input';
 import { LOGIN } from '../queries/user';
-import { Container, ContainerBox, CheckboxDiv } from '../components/container';
+import { Button, SocialMediaButton } from '../components/Buttons/Button';
+import {
+  Container,
+  ContainerBox,
+  CheckboxDiv,
+  SocialMediaDiv,
+} from '../components/container';
+import { Label } from '../components/Labels/Label';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import TextButton from '../components/Buttons/TextButton';
 import { useAuth } from '../context/AuthContext';
 import styled from 'styled-components';
-import { Button } from '../components/Buttons/Button';
-import { Label } from '../components/Labels/Label';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebookF,
+  faTwitter,
+  faGoogle,
+  faInstagram,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons';
 const ErrorMessage = styled.text`
   margin-top: 15px;
   color: red;
@@ -77,6 +89,23 @@ export default function LoginPage() {
           >
             Log in
           </Button>
+          <SocialMediaDiv>
+            <SocialMediaButton>
+              <FontAwesomeIcon icon={faFacebookF} />
+            </SocialMediaButton>
+            <SocialMediaButton>
+              <FontAwesomeIcon icon={faTwitter} />
+            </SocialMediaButton>
+            <SocialMediaButton>
+              <FontAwesomeIcon icon={faGoogle} />
+            </SocialMediaButton>
+            <SocialMediaButton>
+              <FontAwesomeIcon icon={faInstagram} />
+            </SocialMediaButton>
+            <SocialMediaButton>
+              <FontAwesomeIcon icon={faLinkedin} />
+            </SocialMediaButton>
+          </SocialMediaDiv>
 
           <p>
             Don't have an account?{' '}
