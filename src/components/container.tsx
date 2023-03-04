@@ -36,3 +36,8 @@ export const SocialMediaDiv = styled.div`
   gap: 2em;
   margin: 20px 0 20px 0;
 `;
+export const SocialMediaDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+`;
