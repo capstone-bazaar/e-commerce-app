@@ -2,13 +2,13 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Input } from '../components/Input/Input';
 import { LOGIN } from '../queries/user';
-import { Button } from '../components/Buttons/Button';
 import { Container, ContainerBox, CheckboxDiv } from '../components/container';
-import { Label } from '../components/Labels/Label';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import TextButton from '../components/Buttons/TextButton';
 import { useAuth } from '../context/AuthContext';
 import styled from 'styled-components';
+import { Button } from '../components/Buttons/Button';
+import { Label } from '../components/Labels/Label';
 
 const ErrorMessage = styled.text`
   margin-top: 15px;
