@@ -30,3 +30,8 @@ export const CheckboxDiv = styled.div`
   margin-top: 15px;
   gap: 5px;
 `;
+export const SocialMediaDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+`;
