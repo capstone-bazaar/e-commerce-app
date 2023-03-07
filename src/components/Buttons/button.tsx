@@ -20,10 +20,11 @@ export const SocialMediaButton = styled.button`
   background-color: #ea004b;
   color: white;
   border: none;
-  border-radius: 70%;
+  border-radius: 50%;
   font-weight: bold;
   font-size: 1.1rem;
-  width: 45px;
+  width: 48px;
+  flex-shrink: 1;
 
   &:disabled {
     background-color: #c5c5c5;
