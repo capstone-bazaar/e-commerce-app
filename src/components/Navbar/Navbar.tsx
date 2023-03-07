@@ -1,7 +1,7 @@
 import { Logo } from '../../assests/icons';
 import { Nav, NavLink, NavMenu } from './styles';
 
-const Navbar = () => {
+const Navbar = ({ button }: { button: React.ReactNode }) => {
   return (
     <>
       <Nav>
@@ -9,6 +9,7 @@ const Navbar = () => {
           <Logo />
         </NavLink>{' '}
         <NavMenu>
+          {button}
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>

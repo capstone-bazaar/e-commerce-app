@@ -10,6 +10,11 @@ export const Container = styled.div`
   border-radius: 10px;
   padding: 25px;
   gap: 5px;
+
+  @media (max-width: 768px) {
+    border: none;
+    box-shadow: none;
+  }
 `;
 export const ContainerBox = styled.div`
   box-sizing: border-box;
@@ -23,4 +28,5 @@ export const CheckboxDiv = styled.div`
   display: flex;
   align-items: center;
   margin-top: 15px;
+  gap: 5px;
 `;
