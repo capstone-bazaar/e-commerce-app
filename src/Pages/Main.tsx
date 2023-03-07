@@ -71,7 +71,7 @@ export default function MainPage() {
               Join our community today and experience the best of both worlds.
             </Text>
             <Button
-              onClick={() => navigate('/register')}
+              onClick={() => navigate('/signup')}
               style={{ width: '153px', marginTop: '56px' }}
             >
               Join

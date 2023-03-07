@@ -5,7 +5,7 @@ export const LOGIN = gql`
     login(email: $email, password: $password)
   }
 `;
-export const SIGNUP = gql`
+export const REGISTER = gql`
   mutation Register(
     $fullName: String
     $password: String
@@ -14,7 +14,7 @@ export const SIGNUP = gql`
     $avatarURL: String
   ) {
     register(
-      fullName: $fullname
+      fullName: $fullName
       password: $password
       phone: $phone
       email: $email

@@ -1,66 +1,92 @@
-import Navbar from '../components/Navbar/Navbar';
 import { useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { Container, ContainerBox } from '../components/container';
-import { Label } from '../components/Labels/label';
+import { Label } from '../components/Labels/Label';
 import { Input } from '../components/Input/Input';
-import { Button } from '../components/Buttons/button';
-import { SIGNUP } from '../queries/user';
-import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '../components/Buttons/Button';
+import { REGISTER } from '../queries/user';
+import { useAuth } from '../context/AuthContext';
 
 export default function SignUp() {
-  const [signupWithUserData, { error }] = useMutation(SIGNUP);
-  const navigate = useNavigate();
-  const handleOnClickButton = () => {
-    navigate('/profile');
-  };
-  const [signup, setSignUp] = useState({
-    fullname: '',
+  const [register, { error }] = useMutation(REGISTER);
+
+  const { signup } = useAuth();
+
+  const [signupData, setSignUpData] = useState({
+    fullName: '',
     email: '',
     password: '',
-    confirm_password: '',
+    phone: '',
+    confirmPassword: '',
   });
-  const [button_data, setButtonData] = useState(true);
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [errors, setError] = useState('');
+
   const handleChangeSignUpData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setSignUp({ ...signup, [name]: value });
+    setSignUpData({ ...signupData, [name]: value });
   };
+
+  const handleOnClickButton = async () => {
+    if (!errors || errors === '') {
+      const { fullName, email, password, phone } = signupData;
+
+      const { data } = await register({
+        variables: {
+          fullName,
+          email,
+          password,
+          phone,
+        },
+      });
+
+      if (!error && data && data.register) {
+        return signup({ token: data.register });
+      }
+    }
+  };
+
   useEffect(() => {
     if (
-      signup.password === signup.confirm_password &&
-      signup.email &&
-      signup.fullname &&
-      signup.password &&
-      signup.confirm_password
+      signupData.password === signupData.confirmPassword &&
+      signupData.email &&
+      signupData.phone &&
+      signupData.fullName &&
+      signupData.password &&
+      signupData.confirmPassword
     ) {
-      return setButtonData(false);
+      return setIsButtonDisabled(false);
     } else {
       setError('Password and confirm password must  be same');
-      return setButtonData(true);
+      return setIsButtonDisabled(true);
     }
-  }, [signup]);
+
+    // eslint-disable-next-line
+  }, [signupData]);
+
   useEffect(() => {
-    if (signup.password.length < 6) {
+    if (signupData.password.length < 6) {
       return setError('Minimum password length should be 6');
     } else {
       return setError('');
     }
-    console.log(signup);
-  }, [signup]);
+    // eslint-disable-next-line
+  }, [signupData]);
+
   return (
     <PageWithNavbar>
       <ContainerBox>
         <Container>
-          <h1>Welcome to the registration screen</h1>
+          <h1>Hi, there!</h1>
           <Label>Are you ready for a new adventure?</Label>
-          <Label>Name-Surname</Label>
+          <Label>Full Name</Label>
           <Input
             type={'text'}
-            placeholder={'Please enter the name and surname'}
+            placeholder={'Please enter your name and surname'}
             id="name"
-            name={'fullname'}
+            name={'fullName'}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeSignUpData(event);
             }}
@@ -68,19 +94,28 @@ export default function SignUp() {
           <Label>E-mail</Label>
           <Input
             type={'email'}
-            placeholder={'Please enter the email'}
+            placeholder={'Please enter your e-mail'}
             name={'email'}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeSignUpData(event);
             }}
           ></Input>
+          <Label>Phone</Label>
+          <Input
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              handleChangeSignUpData(event);
+            }}
+            type={'phone'}
+            placeholder={'Please enter your phone number'}
+            name={'phone'}
+          />
           <Label>Password</Label>
           <Input
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeSignUpData(event);
             }}
             type={'password'}
-            placeholder={'Please enter the password'}
+            placeholder={'Please enter your password'}
             name={'password'}
           />
           <Label>Confirm Password</Label>
@@ -88,13 +123,13 @@ export default function SignUp() {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeSignUpData(event);
             }}
-            name={'confirm_password'}
+            name={'confirmPassword'}
             type={'password'}
-            placeholder={'Please confirm password'}
+            placeholder={'Please confirm your password'}
           ></Input>
           <br></br>
-          <Button onClick={handleOnClickButton} disabled={button_data}>
-            Return Login Page
+          <Button onClick={handleOnClickButton} disabled={isButtonDisabled}>
+            Sign up
           </Button>
         </Container>
       </ContainerBox>
