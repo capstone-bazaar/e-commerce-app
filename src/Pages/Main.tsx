@@ -7,17 +7,34 @@ import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   width: 100%;
   display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `;
 const Image = styled.img`
   max-width: 553px;
   max-height: 564px;
   margin-left: 41px;
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
 `;
 const TextContainer = styled.div`
   width: 40%;
   height: 100%;
   margin-top: 60px;
   margin-left: 125px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0px;
+    padding: 20px;
+    align-items: center;
+    margin-top: 0px;
+  }
 `;
 const Header = styled.div`
   font-size: 60px;

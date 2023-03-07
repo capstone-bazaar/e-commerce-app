@@ -9,9 +9,9 @@ export default function PageWithNavbar({
   button?: React.ReactNode;
 }) {
   return (
-    <div>
+    <>
       <Navbar button={button} />
       {children}
-    </div>
+    </>
   );
 }
