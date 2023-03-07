@@ -5,8 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 interface ContextInterface {
   isAuth: boolean;
-  login: ({ token }: { token: string }) => void;
   signup: ({ token }: { token: string }) => void;
+  login: ({
+    token,
+    rememberMe,
+  }: {
+    token: string;
+    rememberMe: boolean;
+  }) => void;
   logout: () => void;
 }
 
@@ -20,14 +26,24 @@ const AuthContext = createContext<ContextInterface>({
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean>(
-    !!localStorage.getItem('token')
+    !!localStorage.getItem('token') || !!sessionStorage.getItem('token')
   );
 
   const navigate = useNavigate();
 
-  const login = async ({ token }: { token: string }) => {
+  const login = async ({
+    token,
+    rememberMe,
+  }: {
+    token: string;
+    rememberMe: boolean;
+  }) => {
     if (token) {
-      localStorage.setItem('token', token);
+      if (rememberMe) {
+        localStorage.setItem('token', token);
+      } else {
+        sessionStorage.setItem('token', token);
+      }
       setIsAuth(true);
       navigate('/profile', { replace: true });
     }
@@ -43,6 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setIsAuth(false);
     navigate('/', { replace: true });
   };

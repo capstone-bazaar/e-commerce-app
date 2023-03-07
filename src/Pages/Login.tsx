@@ -35,11 +35,16 @@ export default function LoginPage() {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
+    rememberMe: false,
   });
 
   const handleChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleCheckboxChange = () => {
+    setLoginData({ ...loginData, rememberMe: !loginData.rememberMe });
   };
   const handleOnClick = async () => {
     const { data } = await loginWithUserData({
@@ -47,7 +52,7 @@ export default function LoginPage() {
     });
 
     if (data.login) {
-      login({ token: data.login });
+      login({ token: data.login, rememberMe: loginData.rememberMe });
     }
   };
 
@@ -77,7 +82,7 @@ export default function LoginPage() {
           />
           <CheckboxDiv>
             Remember me
-            <input type={'checkbox'}></input>
+            <input type={'checkbox'} onChange={handleCheckboxChange}></input>
           </CheckboxDiv>
 
           {error && <ErrorMessage>{error.message}</ErrorMessage>}
