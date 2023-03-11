@@ -7,8 +7,16 @@ import { Input } from '../components/Input/Input';
 import { Button } from '../components/Buttons/Button';
 import { REGISTER } from '../queries/user';
 import { useAuth } from '../context/AuthContext';
+//import { object, string, number } from 'yup';
 
 export default function SignUp() {
+  /*const userSchema = object({
+    fullName: string().required(),
+    email: string().email(),
+    password: string().required(),
+    phone: number().nullable(),
+  });*/
+
   const [register, { error }] = useMutation(REGISTER);
 
   const { signup } = useAuth();
