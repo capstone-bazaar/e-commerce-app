@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './app.css';
 import { AuthProvider } from './context/AuthContext';
 import LoginPage from './Pages/Login';
 import MainPage from './Pages/Main';
 import NotFoundPage from './Pages/NotFoundPage';
 import ProductPage from './Pages/Product';
+import ProductPage from './Pages/ProductPage';
 import SignUp from './Pages/Signup';
 import VerifyEmailPage from './Pages/VerifyEmailPage';
 import { PrivateRoute } from './routes/PrivateRoute';

@@ -16,6 +16,7 @@ import TextButton from '../components/Buttons/TextButton';
 import { useAuth } from '../context/AuthContext';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   faFacebookF,
   faTwitter,
