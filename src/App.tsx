@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './app.css';
+import ProductPage from './Pages/ProductPage';
 import { AuthProvider } from './context/AuthContext';
 import LoginPage from './Pages/Login';
 import MainPage from './Pages/Main';
@@ -16,6 +18,7 @@ function App() {
           <Route element={<PrivateRoute />}></Route>
           <Route element={<SignUp />} path="/signup"></Route>
           <Route element={<VerifyEmailPage />} path="/verification" />
+          <Route element={<ProductPage />} path="/product"></Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
