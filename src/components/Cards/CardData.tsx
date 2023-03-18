@@ -1,4 +1,3 @@
-import React from 'react';
 import tomatoes from '../Cards/tomato.jpg';
 import indian from '../Cards/india.png';
 const CardDatas = [
@@ -8,8 +7,8 @@ const CardDatas = [
     price: '25$',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    consumerImage: indian,
-    consumerName: 'Jhon Doe',
+    sellerImage: indian,
+    sellerName: 'Jhon Doe',
     points: '4,5',
   },
   {
@@ -18,8 +17,8 @@ const CardDatas = [
     price: '25$',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    consumerImage: indian,
-    consumerName: 'Jhon Doe',
+    sellerImage: indian,
+    sellerName: 'Jhon Doe',
     points: '4,7',
   },
   {
@@ -28,8 +27,8 @@ const CardDatas = [
     price: '25$',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    consumerImage: indian,
-    consumerName: 'Jhon Doe',
+    sellerImage: indian,
+    sellerName: 'Jhon Doe',
     points: '4,9  ',
   },
 ];

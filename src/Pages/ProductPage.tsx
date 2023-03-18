@@ -10,36 +10,34 @@ import { Title } from '../components/Cards/ProductPageStyle';
 
 export default function ProductPage() {
   return (
-    <div>
-      <PageWithNavbar>
-        <Title>Welcome,</Title>
-        <title>ProductPage</title>
-        <CategoriesContainer>
-          {CategoriesData.map((data, index) => {
-            return (
-              <ProductCategories
-                categoriesName={data.categoriesName}
-                categoriesImage={data.categoriesImage}
-              />
-            );
-          })}
-        </CategoriesContainer>
-        <CardBox>
-          {CardDatas.map((data, index) => {
-            return (
-              <Card
-                price={data.price}
-                image={data.image}
-                productName={data.productName}
-                description={data.description}
-                consumerImage={data.consumerImage}
-                consumerName={data.consumerName}
-                points={data.points}
-              />
-            );
-          })}
-        </CardBox>
-      </PageWithNavbar>
-    </div>
+    <PageWithNavbar>
+      <Title>Welcome,</Title>
+      <title>ProductPage</title>
+      <CategoriesContainer>
+        {CategoriesData.map((data, index) => {
+          return (
+            <ProductCategories
+              categoriesName={data.categoriesName}
+              categoriesImage={data.categoriesImage}
+            />
+          );
+        })}
+      </CategoriesContainer>
+      <CardBox>
+        {CardDatas.map((data, index) => {
+          return (
+            <Card
+              price={data.price}
+              image={data.image}
+              productName={data.productName}
+              description={data.description}
+              sellerImage={data.sellerImage}
+              sellerName={data.sellerName}
+              points={data.points}
+            />
+          );
+        })}
+      </CardBox>
+    </PageWithNavbar>
   );
 }
