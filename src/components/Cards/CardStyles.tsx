@@ -60,3 +60,19 @@ export const CardBox = styled.div`
   justify-content: center;
   gap: 20px;
 `;
+export const ProductPrice = styled.div`
+  box-sizing: border-box;
+  border: 3px solid #000000;
+  border-radius: 20px;
+  width: 75px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #ffffff;
+  text-align: center;
+  font-weight: 800;
+`;
+export const SellerName = styled.div`
+  font-size: 10px;
+  font-weight: 800;
+`;

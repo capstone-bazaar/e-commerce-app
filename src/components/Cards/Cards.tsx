@@ -7,6 +7,8 @@ import {
   InsideContainer,
   InsideContainer2,
   PointLabel,
+  ProductPrice,
+  SellerName,
   TitleText,
   VerticalLine,
 } from './CardStyles';
@@ -18,16 +20,16 @@ export default function Card({
   image,
   productName,
   description,
-  consumerImage,
-  consumerName,
+  sellerImage,
+  sellerName,
   points,
 }: {
   price: string;
   image: string;
   productName: string;
   description: string;
-  consumerImage: string;
-  consumerName: string;
+  sellerImage: string;
+  sellerName: string;
   points: string;
 }) {
   return (
@@ -41,23 +43,8 @@ export default function Card({
             height: '110px',
             borderRadius: '20px 20px 1px 1px',
           }}
-        ></img>
-        <label
-          style={{
-            boxSizing: 'border-box',
-            border: '3px solid #000000',
-            borderRadius: '20px',
-            width: '75px',
-            position: 'absolute',
-            bottom: '0',
-            right: '0',
-            background: '#FFFFFF',
-            textAlign: 'center',
-            fontWeight: '800',
-          }}
-        >
-          {price}
-        </label>
+        />
+        <ProductPrice>{price}</ProductPrice>
       </ImgContainer>
       <InsideContainer>
         <TitleText>{productName}</TitleText>
@@ -67,12 +54,10 @@ export default function Card({
         <BoxOne>
           <img
             alt="s"
-            src={consumerImage}
+            src={sellerImage}
             style={{ width: '31px', borderRadius: '50%' }}
-          ></img>
-          <label style={{ fontSize: '10px', fontWeight: '800' }}>
-            {consumerName}
-          </label>
+          />
+          <SellerName>{sellerName}</SellerName>
         </BoxOne>
         <VerticalLine />
         <PointLabel>
