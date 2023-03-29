@@ -17,6 +17,7 @@ export const ImgContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const InsideContainer = styled.div`
@@ -36,6 +37,8 @@ export const BoxOne = styled.div`
   display: flex;
   flex-direction: column;
   left: 0;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TitleText = styled.label`
@@ -71,8 +74,15 @@ export const ProductPrice = styled.div`
   background: #ffffff;
   text-align: center;
   font-weight: 800;
+  display: flex;
+  justify-content: center;
 `;
 export const SellerName = styled.div`
   font-size: 10px;
   font-weight: 800;
+`;
+export const IconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

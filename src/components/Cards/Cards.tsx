@@ -3,6 +3,7 @@ import {
   BoxOne,
   CardContainer,
   CardLabel,
+  IconBox,
   ImgContainer,
   InsideContainer,
   InsideContainer2,
@@ -60,10 +61,11 @@ export default function Card({
           <SellerName>{sellerName}</SellerName>
         </BoxOne>
         <VerticalLine />
-        <PointLabel>
-          {points}/5{' '}
-          <FontAwesomeIcon icon={faStar} style={{ paddingTop: '10px' }} />
-        </PointLabel>
+        <IconBox>
+          <PointLabel>
+            {points}/5 <FontAwesomeIcon icon={faStar} style={{}} />
+          </PointLabel>
+        </IconBox>
       </InsideContainer2>
     </CardContainer>
   );

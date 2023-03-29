@@ -8,7 +8,7 @@ import ProductCategories from '../components/Cards/Categories';
 import CategoriesData from '../components/Cards/CategoriesData';
 import { Title } from '../components/Cards/ProductPageStyle';
 
-export default function ProductPage() {
+export default function ProductsPage() {
   return (
     <PageWithNavbar>
       <Title>Welcome,</Title>
