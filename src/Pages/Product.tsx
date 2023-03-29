@@ -1,0 +1,158 @@
+import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { AddToCartIcon } from '../assests/icons';
+import { Button } from '../components/Buttons/Button';
+import TextButton from '../components/Buttons/TextButton';
+import CommentItem from '../components/Comment/CommentItem';
+import ImageCarousel from '../components/ImageCarousel/ImageCarousel';
+import RateStars from '../components/RateStars/RateStars';
+import PageWithNavbar from '../components/Templates/PageWithNavbar';
+import { GET_PRODUCT } from '../queries/product';
+
+const Container = styled.div`
+  display: flex;
+  border-radius: 5px;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+const CarouselContainer = styled.div`
+  flex: 1;
+`;
+const PurchaseContainer = styled.div`
+  flex: 1;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: rgba(92, 96, 97, 0.9);
+`;
+const ProductName = styled.div`
+  font-size: 30px;
+`;
+const Price = styled.div`
+  font-size: 30px;
+  font-weight: 700;
+  & span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+`;
+
+const ProductDescription = styled.div`
+  margin-top: 30px;
+  margin-bottom: 30px;
+`;
+
+const PriceAndRateContainer = styled.div`
+  margin-top: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const SellerContainer = styled.div`
+  margin-top: 20px;
+  background: white;
+  border-radius: 5px;
+  padding: 15px;
+`;
+
+export const ContainerBox = styled.div`
+  box-sizing: border-box;
+
+  padding: 60px 30px;
+`;
+
+export const CommentList = styled.div`
+  width: 100%;
+`;
+
+export default function ProductPage() {
+  const { id } = useParams();
+
+  const { data, error, loading } = useQuery(GET_PRODUCT, {
+    variables: { productID: id },
+  });
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error!</div>;
+
+  return (
+    <PageWithNavbar>
+      <ContainerBox>
+        <Container>
+          <CarouselContainer>
+            <ImageCarousel images={[...data.findProductById.imageURLs]} />
+          </CarouselContainer>
+          <PurchaseContainer>
+            <ProductName>{data.findProductById.title}</ProductName>
+            <PriceAndRateContainer>
+              <Price>
+                {data.findProductById.price}{' '}
+                <span>{data.findProductById.currency}</span>
+              </Price>
+              <div>
+                <RateStars />
+                <TextButton href="#comments-list">See all reviews</TextButton>
+              </div>
+            </PriceAndRateContainer>
+            <SellerContainer>
+              <div style={{ marginBottom: '5px' }}>Seller</div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    marginRight: '10px',
+                  }}
+                  alt="seller_img"
+                  src={data.findProductById.seller.avatarURL}
+                />
+                {data.findProductById.seller.fullName}
+              </div>
+            </SellerContainer>
+            <ProductDescription>
+              {data.findProductById.description}
+            </ProductDescription>
+            <Button style={{ width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <span style={{ marginRight: '8px' }}>Add to Cart</span>{' '}
+                <AddToCartIcon />
+              </div>
+            </Button>
+          </PurchaseContainer>
+        </Container>
+
+        <div
+          style={{
+            fontSize: '30px',
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: '30px',
+          }}
+        >
+          Comments ({data.findProductById.comments.length}){' '}
+          <hr style={{ flex: 1, height: '0px', marginLeft: '30px' }} />
+        </div>
+
+        <CommentList id="comments-list">
+          {data.findProductById.comments.map((comment: any, index: number) => {
+            return (
+              <CommentItem
+                key={index}
+                profileImage={comment.user.avatarURL}
+                buyerName={comment.user.fullName}
+                createdAt={comment.createdAt}
+                rate={comment.rate}
+                comment={comment.comment}
+              />
+            );
+          })}
+        </CommentList>
+      </ContainerBox>
+    </PageWithNavbar>
+  );
+}
