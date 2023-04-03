@@ -21,8 +21,7 @@ export const ContainerBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 60px;
-  margin-bottom: 10px;
+  padding: 60px 30px;
 `;
 
 export const CheckboxDiv = styled.div`

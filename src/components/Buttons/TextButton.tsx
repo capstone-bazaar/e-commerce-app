@@ -14,7 +14,7 @@ export default function TextButton({
   children,
   target,
 }: {
-  href: string;
+  href?: string;
   children: React.ReactNode;
   target?: string;
 }) {
