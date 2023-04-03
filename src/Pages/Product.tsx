@@ -69,6 +69,17 @@ export const CommentList = styled.div`
   width: 100%;
 `;
 
+interface CommentInterface {
+  user: {
+    avatarURL: string;
+    fullName: string;
+  };
+
+  createdAt: Date;
+  rate: number;
+  comment: string;
+}
+
 export default function ProductPage() {
   const { id } = useParams();
 
@@ -139,18 +150,20 @@ export default function ProductPage() {
         </div>
 
         <CommentList id="comments-list">
-          {data.findProductById.comments.map((comment: any, index: number) => {
-            return (
-              <CommentItem
-                key={index}
-                profileImage={comment.user.avatarURL}
-                buyerName={comment.user.fullName}
-                createdAt={comment.createdAt}
-                rate={comment.rate}
-                comment={comment.comment}
-              />
-            );
-          })}
+          {data.findProductById.comments.map(
+            (comment: CommentInterface, index: number) => {
+              return (
+                <CommentItem
+                  key={index}
+                  profileImage={comment.user.avatarURL}
+                  buyerName={comment.user.fullName}
+                  createdAt={comment.createdAt}
+                  rate={comment.rate}
+                  comment={comment.comment}
+                />
+              );
+            }
+          )}
         </CommentList>
       </ContainerBox>
     </PageWithNavbar>
