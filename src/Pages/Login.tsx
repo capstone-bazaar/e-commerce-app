@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
+import { object, string, ValidationError } from 'yup';
 import { Input } from '../components/Input/Input';
 import { LOGIN } from '../queries/user';
 import { Button, SocialMediaButton } from '../components/Buttons/Button';
@@ -22,16 +23,21 @@ import {
   faInstagram,
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
-const ErrorMessage = styled.text`
+export const ErrorMessage = styled.text`
   margin-top: 15px;
   color: red;
   font-size: small;
 `;
 
+const userSchema = object({
+  email: string().email().required('Email is required'),
+  password: string().required(),
+});
+
 export default function LoginPage() {
   const [loginWithUserData, { error }] = useMutation(LOGIN);
   const { login } = useAuth();
-
+  const [validationError, setValidationError] = useState('');
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -47,13 +53,22 @@ export default function LoginPage() {
     setLoginData({ ...loginData, rememberMe: !loginData.rememberMe });
   };
   const handleOnClick = async () => {
-    const { data } = await loginWithUserData({
-      variables: { email: loginData.email, password: loginData.password },
-    });
+    userSchema
+      .validate(loginData)
+      .then(async () => {
+        const { data } = await loginWithUserData({
+          variables: { email: loginData.email, password: loginData.password },
+        });
 
-    if (data.login) {
-      login({ token: data.login, rememberMe: loginData.rememberMe });
-    }
+        if (data.login) {
+          login({ token: data.login, rememberMe: loginData.rememberMe });
+        }
+      })
+      .catch((errors) => {
+        if (errors instanceof ValidationError) {
+          setValidationError(errors.message);
+        }
+      });
   };
 
   return (
@@ -86,8 +101,8 @@ export default function LoginPage() {
           </CheckboxDiv>
 
           {error && <ErrorMessage>{error.message}</ErrorMessage>}
+          {validationError && <ErrorMessage>{validationError}</ErrorMessage>}
           <Button
-            disabled={!loginData.email || !loginData.password}
             type={'submit'}
             onClick={handleOnClick}
             style={{ marginTop: '20px' }}

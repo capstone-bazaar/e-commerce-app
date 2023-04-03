@@ -7,8 +7,25 @@ import { Input } from '../components/Input/Input';
 import { Button } from '../components/Buttons/Button';
 import { REGISTER } from '../queries/user';
 import { useAuth } from '../context/AuthContext';
+import { object, string, ref, ValidationError } from 'yup';
+import { ErrorMessage } from './Login';
 
-export default function SignUp() {
+export default function SignUpSchema() {
+  const signupSchema = object().shape({
+    fullName: string().required('Fullname is required'),
+
+    email: string().email().required('Email is required'),
+
+    password: string()
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
+    confirmPassword: string()
+      .oneOf([ref('password')], 'Passwords do not match')
+      .required('Confirm Password is required'),
+
+    phone: string().required('Phone number is required'),
+  });
+
   const [register, { error }] = useMutation(REGISTER);
 
   const { signup } = useAuth();
@@ -30,27 +47,35 @@ export default function SignUp() {
   };
 
   const handleOnClickButton = async () => {
-    if (!errors || errors === '') {
-      const { fullName, email, password, phone } = signupData;
+    signupSchema
+      .validate(signupData)
+      .then(async () => {
+        if (!errors || errors === '') {
+          const { fullName, email, password, phone } = signupData;
 
-      const { data } = await register({
-        variables: {
-          fullName,
-          email,
-          password,
-          phone,
-        },
+          const { data } = await register({
+            variables: {
+              fullName,
+              email,
+              password,
+              phone,
+            },
+          });
+
+          if (!error && data && data.register) {
+            return signup({ token: data.register });
+          }
+        }
+      })
+      .catch((errors) => {
+        if (errors instanceof ValidationError) {
+          setError(errors.message);
+        }
       });
-
-      if (!error && data && data.register) {
-        return signup({ token: data.register });
-      }
-    }
   };
 
   useEffect(() => {
     if (
-      signupData.password === signupData.confirmPassword &&
       signupData.email &&
       signupData.phone &&
       signupData.fullName &&
@@ -59,19 +84,9 @@ export default function SignUp() {
     ) {
       return setIsButtonDisabled(false);
     } else {
-      setError('Password and confirm password must  be same');
       return setIsButtonDisabled(true);
     }
 
-    // eslint-disable-next-line
-  }, [signupData]);
-
-  useEffect(() => {
-    if (signupData.password.length < 6) {
-      return setError('Minimum password length should be 6');
-    } else {
-      return setError('');
-    }
     // eslint-disable-next-line
   }, [signupData]);
 
@@ -128,6 +143,7 @@ export default function SignUp() {
             placeholder={'Please confirm your password'}
           ></Input>
           <br></br>
+          {errors && <ErrorMessage>{errors}</ErrorMessage>}
           <Button onClick={handleOnClickButton} disabled={isButtonDisabled}>
             Sign up
           </Button>
