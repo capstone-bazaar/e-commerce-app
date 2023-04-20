@@ -9,6 +9,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import './app.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql',

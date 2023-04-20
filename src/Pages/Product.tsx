@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddToCartIcon } from '../assests/icons';
@@ -9,6 +9,8 @@ import ImageCarousel from '../components/ImageCarousel/ImageCarousel';
 import RateStars from '../components/RateStars/RateStars';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { GET_PRODUCT } from '../queries/product';
+import { ADD_TO_CART } from '../queries/user';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Container = styled.div`
   display: flex;
@@ -87,11 +89,44 @@ export default function ProductPage() {
     variables: { productID: id },
   });
 
+  const [addProductToShoppingCart] = useMutation(ADD_TO_CART);
+
+  const addToCart = async () => {
+    try {
+      await addProductToShoppingCart({
+        variables: {
+          productId: id,
+        },
+      });
+
+      toast.success('Added to cart 🚀', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    } catch (error) {
+      toast.error('Something went wrong.', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
 
   return (
     <PageWithNavbar>
+      <ToastContainer />
       <ContainerBox>
         <Container>
           <CarouselContainer>
@@ -125,15 +160,18 @@ export default function ProductPage() {
                 {data.findProductById.seller.fullName}
               </div>
             </SellerContainer>
-            <ProductDescription>
-              {data.findProductById.description}
-            </ProductDescription>
-            <Button style={{ width: '100%' }}>
+            <Button
+              style={{ width: '100%', marginTop: '20px' }}
+              onClick={addToCart}
+            >
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <span style={{ marginRight: '8px' }}>Add to Cart</span>{' '}
                 <AddToCartIcon />
               </div>
             </Button>
+            <ProductDescription>
+              {data.findProductById.description}
+            </ProductDescription>
           </PurchaseContainer>
         </Container>
 
