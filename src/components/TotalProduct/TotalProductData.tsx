@@ -1,10 +1,8 @@
-import tomatoes from '../Cards/tomato.jpg';
-import indian from '../Cards/india.png';
-import React from 'react';
 import { gql } from '@apollo/client';
-const GET_PRODUCTS = gql`
-  query GetProducts {
-    findAllProducts {
+
+const GET_TOTAL_PRODUCT = gql`
+  query GetTotalProduct {
+    allProducts {
       id
       price
       currency
@@ -26,5 +24,4 @@ const GET_PRODUCTS = gql`
     }
   }
 `;
-
-export default GET_PRODUCTS;
+export default GET_TOTAL_PRODUCT;

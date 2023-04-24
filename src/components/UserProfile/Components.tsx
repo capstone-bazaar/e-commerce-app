@@ -41,6 +41,10 @@ export const ProfileContainer = styled.div`
   justify-content: space-around;
   margin-left: 0;
   margin-top: 100px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 export const OrderBox = styled.div`
   background-color: #ffffff;
@@ -57,10 +61,10 @@ export const OrderBox = styled.div`
 
 export const HorizontalLine = styled.div`
   border: 1px solid rgba(153, 153, 153, 0.31);
-  width: 1100px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 100&;
 `;
 export const RightBox = styled.div`
   display: flex;

@@ -1,19 +1,28 @@
 import React from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import CardDatas from '../components/Cards/CardData';
+import GET_PRODUCTS from '../components/Cards/CardData';
 import Card from '../components/Cards/Cards';
 import { CardBox } from '../components/Cards/CardStyles';
 import { CategoriesContainer } from '../components/Cards/CategoriesStyle';
 import ProductCategories from '../components/Cards/Categories';
 import CategoriesData from '../components/Cards/CategoriesData';
 import { Title } from '../components/Cards/ProductPageStyle';
+import { useQuery } from '@apollo/client';
 
 export default function ProductsPage() {
+  const { loading, error, data } = useQuery(GET_PRODUCTS);
+  if (loading) {
+    return <div>loading</div>;
+  }
+  if (error) {
+    return <div>Error</div>;
+  }
+
   return (
     <PageWithNavbar>
       <Title>Welcome,</Title>
       <title>ProductPage</title>
-      <CategoriesContainer>
+      {/* <CategoriesContainer>
         {CategoriesData.map((data, index) => {
           return (
             <ProductCategories
@@ -22,21 +31,36 @@ export default function ProductsPage() {
             />
           );
         })}
-      </CategoriesContainer>
+      </CategoriesContainer> */}
       <CardBox>
-        {CardDatas.map((data, index) => {
-          return (
-            <Card
-              price={data.price}
-              image={data.image}
-              productName={data.productName}
-              description={data.description}
-              sellerImage={data.sellerImage}
-              sellerName={data.sellerName}
-              points={data.points}
-            />
-          );
-        })}
+        {data.findAllProducts.map(
+          (
+            product: {
+              price: string;
+              imageURL: string;
+              productName: string;
+              description: string;
+              sellerImage: string;
+              sellerName: string;
+              points: string;
+              currency: string;
+            },
+            index: number
+          ) => {
+            return (
+              <Card
+                price={product.price}
+                image={product.imageURL}
+                productName={product.productName}
+                description={product.description}
+                sellerImage={product.sellerImage}
+                sellerName={product.sellerName}
+                points={product.points}
+                currency={product.currency}
+              />
+            );
+          }
+        )}
       </CardBox>
     </PageWithNavbar>
   );

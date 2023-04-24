@@ -10,6 +10,8 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 13px;
+  flex: 1;
+  max-width: 270px;
 `;
 
 export const ImgContainer = styled.div`
@@ -25,7 +27,7 @@ export const InsideContainer = styled.div`
   flex-direction: column;
   padding-top: 10px;
 `;
-export const InsideContainer2 = styled.div`
+export const InsideContainerTwo = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 15px;
@@ -62,6 +64,11 @@ export const CardBox = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  flex-wrap: wrap;
 `;
 export const ProductPrice = styled.div`
   box-sizing: border-box;

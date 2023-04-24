@@ -6,7 +6,7 @@ import {
   IconBox,
   ImgContainer,
   InsideContainer,
-  InsideContainer2,
+  InsideContainerTwo,
   PointLabel,
   ProductPrice,
   SellerName,
@@ -24,6 +24,7 @@ export default function Card({
   sellerImage,
   sellerName,
   points,
+  currency,
 }: {
   price: string;
   image: string;
@@ -32,6 +33,7 @@ export default function Card({
   sellerImage: string;
   sellerName: string;
   points: string;
+  currency: string;
 }) {
   return (
     <CardContainer>
@@ -45,13 +47,15 @@ export default function Card({
             borderRadius: '20px 20px 1px 1px',
           }}
         />
-        <ProductPrice>{price}</ProductPrice>
+        <ProductPrice>
+          {price} {currency}
+        </ProductPrice>
       </ImgContainer>
       <InsideContainer>
         <TitleText>{productName}</TitleText>
         <CardLabel>{description}</CardLabel>
       </InsideContainer>
-      <InsideContainer2>
+      <InsideContainerTwo>
         <BoxOne>
           <img
             alt="s"
@@ -63,10 +67,10 @@ export default function Card({
         <VerticalLine />
         <IconBox>
           <PointLabel>
-            {points}/5 <FontAwesomeIcon icon={faStar} style={{}} />
+            {points}/5 <FontAwesomeIcon icon={faStar} />
           </PointLabel>
         </IconBox>
-      </InsideContainer2>
+      </InsideContainerTwo>
     </CardContainer>
   );
 }

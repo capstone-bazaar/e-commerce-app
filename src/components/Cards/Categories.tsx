@@ -4,6 +4,7 @@ import {
   CategoriesBoxTwo,
   CategoriesImg,
   CategoriesText,
+  CategoriesİnsideBox,
 } from './CategoriesStyle';
 
 export default function ProductCategories({
@@ -16,8 +17,10 @@ export default function ProductCategories({
   return (
     <CategoriesBox>
       <CategoriesBoxTwo>
-        <CategoriesImg src={categoriesImage} />
-        <CategoriesText>{categoriesName}</CategoriesText>
+        <CategoriesİnsideBox>
+          <CategoriesImg src={categoriesImage} />
+          <CategoriesText>{categoriesName}</CategoriesText>
+        </CategoriesİnsideBox>
       </CategoriesBoxTwo>
     </CategoriesBox>
   );

@@ -38,3 +38,9 @@ export const CategoriesText = styled.label`
   font-size: 14px;
   font-weight: 800;
 `;
+export const CategoriesİnsideBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
