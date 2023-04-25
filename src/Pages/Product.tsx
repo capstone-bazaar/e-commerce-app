@@ -9,7 +9,7 @@ import ImageCarousel from '../components/ImageCarousel/ImageCarousel';
 import RateStars from '../components/RateStars/RateStars';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { GET_PRODUCT } from '../queries/product';
-import { ADD_TO_CART } from '../queries/user';
+import { ADD_TO_CART, GET_ME } from '../queries/user';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Container = styled.div`
@@ -97,6 +97,7 @@ export default function ProductPage() {
         variables: {
           productId: id,
         },
+        refetchQueries: [GET_ME],
       });
 
       toast.success('Added to cart 🚀', {

@@ -34,3 +34,25 @@ export const REMOVE_FROM_CART = gql`
     removeProductFromShoppingCart(productId: $productId)
   }
 `;
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      fullName
+      phone
+      avatarURL
+      email
+      address
+      shoppingCart {
+        id
+        price
+        title
+        seller {
+          fullName
+        }
+        imageURLs
+      }
+    }
+  }
+`;

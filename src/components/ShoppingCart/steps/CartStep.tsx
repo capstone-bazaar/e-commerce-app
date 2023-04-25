@@ -57,24 +57,30 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function CartStep() {
-  return (
-    <Wrapper>
-      <div>
+export default function CartStep({
+  onRemoveProduct,
+  data,
+}: {
+  onRemoveProduct: (productId: string) => void;
+  data: any;
+}) {
+  return data.me.shoppingCart.map((item: any, index: number) => (
+    <Wrapper key={index}>
+      <div onClick={() => onRemoveProduct(item.id)}>
         <TrashIcon />
       </div>
       <ProductContainer>
         <SellerContainer>
-          Seller: <b></b>
+          Seller: <b>{item.seller.fullName}</b>
         </SellerContainer>
         <ProductDescriptionsContainer>
-          <ImageContainer src="" />
+          <ImageContainer src={item.imageURLs[0]} />
           <ProductInfoContainer>
-            <ProductName></ProductName>
-            <ProductPrice></ProductPrice>
+            <ProductName>{item.title}</ProductName>
+            <ProductPrice>${item.price}</ProductPrice>
           </ProductInfoContainer>
         </ProductDescriptionsContainer>
       </ProductContainer>
     </Wrapper>
-  );
+  ));
 }

@@ -4,6 +4,9 @@ import { STEPS } from '../../utils/constants';
 
 type Props = {
   changeStep: React.Dispatch<React.SetStateAction<STEPS>>;
+  shoppingCartItems: {
+    price: number;
+  }[];
 };
 
 const Box = styled.div`
@@ -30,15 +33,24 @@ const TotalPrice = styled.div`
   font-size: 30px;
 `;
 
-export default function CompleteShoppingBox({ changeStep }: Props) {
+export default function CompleteShoppingBox({
+  changeStep,
+  shoppingCartItems,
+}: Props) {
   const hanldeNextStep = () => {
     changeStep(STEPS.CHECKOUT_STEP);
   };
+
   return (
     <Box>
       <div>
-        <Title>Selected Products ()</Title>
-        <TotalPrice></TotalPrice>
+        <Title>Selected Products ({shoppingCartItems.length})</Title>
+        <TotalPrice>
+          <div>Total:</div>$
+          {shoppingCartItems.length > 0
+            ? shoppingCartItems.reduce((acc: any, cur) => acc + cur.price, 0)
+            : 0}
+        </TotalPrice>
       </div>
       <Button onClick={hanldeNextStep} style={{ width: '100%' }}>
         Continue to payment

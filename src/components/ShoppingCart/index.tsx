@@ -4,6 +4,9 @@ import CheckoutStep from './steps/CheckoutStep';
 import { STEPS } from '../../utils/constants';
 import styled from 'styled-components';
 import CompleteShoppingBox from './CompleteShoppingBox';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_ME, REMOVE_FROM_CART } from '../../queries/user';
+import { ToastContainer, toast } from 'react-toastify';
 
 const BoxContainer = styled.div`
   display: flex;
@@ -36,11 +39,49 @@ const CompleteShoppingBoxContainer = styled.div`
 export default function ShoppingCartComponent() {
   const [currentStep, setCurrentStep] = useState<STEPS>(STEPS.CART_STEP);
 
+  const [removeProduct] = useMutation(REMOVE_FROM_CART);
+  const { data, loading, error } = useQuery(GET_ME);
+
+  const handleRemoveItemFromCart = async (productId: string) => {
+    try {
+      await removeProduct({
+        variables: {
+          productId,
+        },
+        refetchQueries: [GET_ME],
+      });
+      toast.success('Product removed from your cart', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    } catch (error) {
+      toast.error('Something went wrong.', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error!</div>;
+
   let Component: JSX.Element | null = null;
 
   switch (currentStep) {
     case STEPS.CART_STEP:
-      Component = <CartStep />;
+      Component = (
+        <CartStep data={data} onRemoveProduct={handleRemoveItemFromCart} />
+      );
       break;
 
     case STEPS.CHECKOUT_STEP:
@@ -53,9 +94,13 @@ export default function ShoppingCartComponent() {
 
   return (
     <BoxContainer>
+      <ToastContainer />
       <ContentContainer>{Component}</ContentContainer>
       <CompleteShoppingBoxContainer>
-        <CompleteShoppingBox changeStep={setCurrentStep} />
+        <CompleteShoppingBox
+          changeStep={setCurrentStep}
+          shoppingCartItems={data.me.shoppingCart}
+        />
       </CompleteShoppingBoxContainer>
     </BoxContainer>
   );
