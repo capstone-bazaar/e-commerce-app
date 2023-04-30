@@ -10,8 +10,8 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 13px;
-  flex: 1;
   max-width: 270px;
+  flex-wrap: wrap;
 `;
 
 export const ImgContainer = styled.div`
@@ -62,11 +62,14 @@ export const VerticalLine = styled.div`
 
 export const CardBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 20px;
+  margin: 90px;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    display: flex;
+    margin: 0 auto;
   }
   flex-wrap: wrap;
 `;

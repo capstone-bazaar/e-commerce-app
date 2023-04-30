@@ -21,6 +21,7 @@ export const LabelBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 `;
 export const ProductProfileBox = styled.div`
   background-color: #ffffff;
@@ -70,4 +71,38 @@ export const RightBox = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+  @media (max-width: 768px) {
+    margin-top: 15px;
+  }
+`;
+export const ProductLabel = styled.div`
+  font-size: 20px;
+  font-weight: 800;
+`;
+export const ProductLabelStockCounter = styled.div`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: rgba(0, 0, 0, 0.55);
+`;
+export const ActiveOrderLabel = styled.div`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+`;
+export const ActiveOrderStockLabel = styled.div`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: rgba(0, 0, 0, 0.55);
 `;

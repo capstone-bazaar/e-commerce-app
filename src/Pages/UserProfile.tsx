@@ -7,10 +7,14 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  ActiveOrderLabel,
+  ActiveOrderStockLabel,
   DescriptionLabel,
   HorizontalLine,
   LabelBox,
   OrderBox,
+  ProductLabel,
+  ProductLabelStockCounter,
   ProductProfileBox,
   ProfileContainer,
   ProfileImgBox,
@@ -18,32 +22,44 @@ import {
   RightBox,
 } from '../components/UserProfile/Components';
 import indian from '../components/UserProfile/Image/indian-senior.png';
+import TotalProduct from '../components/TotalProduct/TotalProduct';
+import ActiveOrderTab from '../components/UserProfile/tabs/activeOrderTab';
+import TotalPrdouctTab from '../components/UserProfile/tabs/totalProductsTab';
+
+enum TABS {
+  TOTAL_PRODUCT_TAB,
+  ACTIVE_ORDER_TAB,
+}
 
 export default function UserProfile() {
-  const [buttonlink, setButton] = useState(false);
-  const [buttonslink, setButtons] = useState(false);
-  const navigates = useNavigate();
-  const navigate = useNavigate();
   const { loading, error, data } = useQuery(GET_PRODUCTS);
+  const [activeTab, setActiveTab] = useState(TABS.TOTAL_PRODUCT_TAB);
+
+  let activeComponent;
+
+  switch (activeTab) {
+    case TABS.ACTIVE_ORDER_TAB:
+      activeComponent = <ActiveOrderTab />;
+      break;
+    case TABS.TOTAL_PRODUCT_TAB:
+      activeComponent = <TotalPrdouctTab data={data} />;
+      break;
+
+    default:
+      activeComponent = <TotalPrdouctTab data={data} />;
+      break;
+  }
+  const handleButtonClick = (tab: TABS) => {
+    setActiveTab(tab);
+  };
+
   if (loading) {
     return <div>Error</div>;
   }
   if (error) {
     return <div>Error</div>;
   }
-  const handleButtonClick = () => {
-    setButton(true);
-  };
-  const handleButtonsClick = () => {
-    setButtons(true);
-  };
 
-  if (buttonlink) {
-    navigate('/total-product');
-  }
-  if (buttonslink) {
-    navigates('/active-product');
-  }
   return (
     <PageWithNavbar>
       <title>Welcome</title>
@@ -56,48 +72,21 @@ export default function UserProfile() {
           </LabelBox>
         </ProfileImgBox>
         <RightBox>
-          <ProductProfileBox onClick={handleButtonClick}>
-            <label>Total Product</label>
-            <label>60</label>
+          <ProductProfileBox
+            onClick={() => handleButtonClick(TABS.TOTAL_PRODUCT_TAB)}
+          >
+            <ProductLabel>Total Product</ProductLabel>
+            <ProductLabelStockCounter>60</ProductLabelStockCounter>
           </ProductProfileBox>
-          <OrderBox onClick={handleButtonsClick}>
-            <label>Active Order</label>
-            <label>60</label>
+          <OrderBox onClick={() => handleButtonClick(TABS.ACTIVE_ORDER_TAB)}>
+            <ActiveOrderLabel>Active Order</ActiveOrderLabel>
+            <ActiveOrderStockLabel>60</ActiveOrderStockLabel>
           </OrderBox>
         </RightBox>
       </ProfileContainer>
       <HorizontalLine />
 
-      <CardBox style={{ marginTop: '10px' }}>
-        {data.findAllProducts.map(
-          (
-            product: {
-              price: string;
-              imageURL: string;
-              productName: string;
-              description: string;
-              sellerImage: string;
-              sellerName: string;
-              points: string;
-              currency: string;
-            },
-            index: number
-          ) => {
-            return (
-              <Card
-                price={product.price}
-                image={product.imageURL}
-                productName={product.productName}
-                description={product.description}
-                sellerImage={product.sellerImage}
-                sellerName={product.sellerName}
-                points={product.points}
-                currency={product.currency}
-              />
-            );
-          }
-        )}
-      </CardBox>
+      {activeComponent}
     </PageWithNavbar>
   );
 }
