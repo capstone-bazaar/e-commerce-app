@@ -12,10 +12,19 @@ export const DescriptionLabel = styled.div`
   font-size: 20px;
   line-height: 24px;
   color: rgba(0, 0, 0, 0.39);
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 export const ProfileImgBox = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 `;
 export const LabelBox = styled.div`
   display: flex;
@@ -45,6 +54,7 @@ export const ProfileContainer = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 `;
 export const OrderBox = styled.div`
@@ -105,4 +115,12 @@ export const ActiveOrderStockLabel = styled.div`
   line-height: 24px;
 
   color: rgba(0, 0, 0, 0.55);
+`;
+export const ImgProfile = styled.img`
+  @media (max-width: 768px) {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

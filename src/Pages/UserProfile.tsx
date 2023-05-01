@@ -11,6 +11,7 @@ import {
   ActiveOrderStockLabel,
   DescriptionLabel,
   HorizontalLine,
+  ImgProfile,
   LabelBox,
   OrderBox,
   ProductLabel,
@@ -65,7 +66,7 @@ export default function UserProfile() {
       <title>Welcome</title>
       <ProfileContainer>
         <ProfileImgBox>
-          <img src={indian} />
+          <ImgProfile src={indian} />
           <LabelBox>
             <ProfileLabel>Jhon Doe Özdemir</ProfileLabel>
             <DescriptionLabel>Tarladan Kapınıza</DescriptionLabel>
