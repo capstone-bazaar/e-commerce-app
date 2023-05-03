@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import RateStars from '../components/RateStars/RateStars';
 import {
   CanceledIcon,
@@ -40,7 +40,28 @@ export const rateOptions: { value: number; label: ReactElement }[] = [
   },
 ];
 
-export const SHIPMENT_STATUSES: any = {
+export const SHIPMENT_STATES = {
+  PREPARING: 'PREPARING',
+  DELIVERED: 'DELIVERED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  CANCELED: 'CANCELED',
+};
+
+export enum SHIPMENT_ENUM {
+  PREPARING = 'PREPARING',
+  DELIVERED = 'DELIVERED',
+  IN_TRANSIT = 'IN_TRANSIT',
+  CANCELED = 'CANCELED',
+}
+
+export const SHIPMENT_STATUSES: {
+  [key in SHIPMENT_ENUM]: {
+    secondaryColor: string;
+    primaryColor: string;
+    description: string;
+    icon: ReactNode;
+  };
+} = {
   PREPARING: {
     secondaryColor: '#fcf5dd',
     primaryColor: '#FFC107',

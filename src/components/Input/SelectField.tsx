@@ -1,5 +1,6 @@
 import Select from 'react-select';
 
+/* eslint-disable */
 const defaultStyles = {
   control: (baseStyles: any, state: any) => ({
     ...baseStyles,
@@ -15,7 +16,7 @@ export default function SelectField({
   name,
   ...props
 }: {
-  onChange: () => void;
+  onChange: (e: any) => void;
   defaultValue: any;
   options: any[];
   name: string;
