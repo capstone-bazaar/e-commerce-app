@@ -1,11 +1,7 @@
-import Card from '../components/Cards/Cards';
-import { CardBox } from '../components/Cards/CardStyles';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import GET_PRODUCTS from '../components/Cards/CardData';
 import { useQuery } from '@apollo/client';
-import styled from 'styled-components';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   ActiveOrderLabel,
   ActiveOrderStockLabel,
@@ -23,7 +19,6 @@ import {
   RightBox,
 } from '../components/UserProfile/Components';
 import indian from '../components/UserProfile/Image/indian-senior.png';
-import TotalProduct from '../components/TotalProduct/TotalProduct';
 import ActiveOrderTab from '../components/UserProfile/tabs/activeOrderTab';
 import TotalPrdouctTab from '../components/UserProfile/tabs/totalProductsTab';
 

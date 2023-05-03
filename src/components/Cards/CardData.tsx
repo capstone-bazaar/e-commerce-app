@@ -1,6 +1,3 @@
-import tomatoes from '../Cards/tomato.jpg';
-import indian from '../Cards/india.png';
-import React from 'react';
 import { gql } from '@apollo/client';
 const GET_PRODUCTS = gql`
   query GetProducts {
