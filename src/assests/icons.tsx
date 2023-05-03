@@ -160,3 +160,85 @@ export const AddToCartIcon = () => {
     </svg>
   );
 };
+
+export const TrashIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0,0,256,256"
+      width="24px"
+      height="24px"
+      fill-rule="nonzero"
+    >
+      <g
+        fill="#e35959"
+        fill-rule="nonzero"
+        stroke="none"
+        stroke-width="1"
+        stroke-linecap="butt"
+        stroke-linejoin="miter"
+        stroke-miterlimit="10"
+        stroke-dasharray=""
+        stroke-dashoffset="0"
+        font-family="none"
+        font-weight="none"
+        font-size="none"
+        text-anchor="none"
+      >
+        <g transform="scale(10.66667,10.66667)">
+          <path d="M10,2l-1,1h-5v2h1v15c0,0.52222 0.19133,1.05461 0.56836,1.43164c0.37703,0.37703 0.90942,0.56836 1.43164,0.56836h10c0.52222,0 1.05461,-0.19133 1.43164,-0.56836c0.37703,-0.37703 0.56836,-0.90942 0.56836,-1.43164v-15h1v-2h-5l-1,-1zM7,5h10v15h-10zM9,7v11h2v-11zM13,7v11h2v-11z"></path>
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+export const ShoppingCartIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0,0,256,256"
+      width="35px"
+      height="35px"
+      fill-rule="nonzero"
+    >
+      <g
+        fill="#ea004b"
+        fill-rule="nonzero"
+        stroke="none"
+        stroke-width="1"
+        stroke-linecap="butt"
+        stroke-linejoin="miter"
+        stroke-miterlimit="10"
+        stroke-dasharray=""
+        stroke-dashoffset="0"
+        font-family="none"
+        font-weight="none"
+        font-size="none"
+        text-anchor="none"
+      >
+        <g transform="scale(8.53333,8.53333)">
+          <path d="M2,2c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h1.87891c0.2259,0 0.4144,0.14146 0.47852,0.35938l4.26172,14.48828c0.37403,1.27171 1.55027,2.15234 2.87695,2.15234h10.97656c1.34842,0 2.539,-0.91131 2.89453,-2.21094l2.59766,-9.52539c0.08217,-0.30078 0.01936,-0.62267 -0.16985,-0.87049c-0.18922,-0.24782 -0.48319,-0.39321 -0.79499,-0.39318h-19.48633l-1.23633,-4.20508c-0.00065,0 -0.0013,0 -0.00195,0c-0.31189,-1.06009 -1.29239,-1.79492 -2.39648,-1.79492zM12,23c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM22,23c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2z"></path>
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+export const MasterCardIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 48 48"
+      width="48px"
+      height="48px"
+    >
+      <path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z" />
+      <path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z" />
+      <path
+        fill="#ff3d00"
+        d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"
+      />
+    </svg>
+  );
+};

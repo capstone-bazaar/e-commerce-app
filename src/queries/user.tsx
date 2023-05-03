@@ -22,3 +22,41 @@ export const REGISTER = gql`
     )
   }
 `;
+
+export const ADD_TO_CART = gql`
+  mutation AddProductToShoppingCart($productId: String) {
+    addProductToShoppingCart(productId: $productId)
+  }
+`;
+
+export const REMOVE_FROM_CART = gql`
+  mutation RemoveProductFromShoppingCart($productId: String) {
+    removeProductFromShoppingCart(productId: $productId)
+  }
+`;
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      fullName
+      phone
+      avatarURL
+      email
+      addresses {
+        id
+        title
+        address
+      }
+      shoppingCart {
+        id
+        price
+        title
+        seller {
+          fullName
+        }
+        imageURLs
+      }
+    }
+  }
+`;

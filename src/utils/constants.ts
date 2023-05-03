@@ -1,0 +1,9 @@
+export enum STEPS {
+  CART_STEP,
+  CHECKOUT_STEP,
+}
+
+export enum PAYMENT_METHODS {
+  CREDIT_CARD = 'CREDIT_CARD',
+  MB_MONEY = 'MB_MONEY',
+}
