@@ -8,6 +8,7 @@ import SignUp from './Pages/Signup';
 import VerifyEmailPage from './Pages/VerifyEmailPage';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { ShoppingCartPage } from './Pages/ShoppingCart';
+import OrdersPage from './Pages/OrdersPage';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<ShoppingCartPage />} path="/checkout"></Route>
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route element={<OrdersPage />} path="/orders"></Route>
           </Route>
         </Routes>
       </AuthProvider>

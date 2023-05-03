@@ -39,10 +39,22 @@ export const GET_ME = gql`
   query Me {
     me {
       id
+
       fullName
       phone
       avatarURL
       email
+      orders {
+        status
+        price
+        orderNumber
+        shippingAddress
+        product {
+          title
+          imageURLs
+        }
+        createdAt
+      }
       addresses {
         id
         title
