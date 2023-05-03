@@ -1,9 +1,19 @@
 import React from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import { ContainerBox } from '../components/container';
+
 import { Button } from '../components/Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+const ContainerError = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
 const Image = styled.img`
   max-width: 500px;
   max-height: 400px;
@@ -15,12 +25,11 @@ const Image = styled.img`
 const TextContainer = styled.div`
   width: 40%;
   height: 100%;
-  margin-top: 50px;
-  margin-left: 25px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     margin-left: 0px;
     padding: 20px;
@@ -33,20 +42,17 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
   return (
     <PageWithNavbar>
-      <ContainerBox>
-        <Image src="/assets/questionmark_image.png"></Image>
+      <ContainerError>
+        <Image src="/assets/404NotFoundPage_image.png"></Image>
 
         <TextContainer>
-          <h1>404 NOT FOUND PAGE !</h1>
+          <h1>404 NOT FOUND !</h1>
 
-          <Button
-            onClick={() => navigate('/')}
-            style={{ width: '200px', marginLeft: '90px', marginTop: '75px' }}
-          >
+          <Button onClick={() => navigate('/')} style={{ marginTop: '10px' }}>
             Return Home Page
           </Button>
         </TextContainer>
-      </ContainerBox>
+      </ContainerError>
     </PageWithNavbar>
   );
 }
