@@ -43,6 +43,26 @@ export const GET_ME = gql`
       phone
       avatarURL
       email
+      orders {
+        status
+        price
+        trackingNumber
+        orderNumber
+        shippingAddress
+        product {
+          id
+          title
+          imageURLs
+          comments {
+            user {
+              id
+            }
+            rate
+            comment
+          }
+        }
+        createdAt
+      }
       addresses {
         id
         title
