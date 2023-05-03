@@ -43,7 +43,11 @@ export const GET_ME = gql`
       phone
       avatarURL
       email
-      address
+      addresses {
+        id
+        title
+        address
+      }
       shoppingCart {
         id
         price

@@ -8,6 +8,11 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_ME, REMOVE_FROM_CART } from '../../queries/user';
 import { ToastContainer, toast } from 'react-toastify';
 
+interface OrderInterface {
+  paymentMethod: string;
+  shippingAddress: string;
+}
+
 const BoxContainer = styled.div`
   display: flex;
   width: 100%;
@@ -38,6 +43,10 @@ const CompleteShoppingBoxContainer = styled.div`
 
 export default function ShoppingCartComponent() {
   const [currentStep, setCurrentStep] = useState<STEPS>(STEPS.CART_STEP);
+  const [orderInfo, setOrderInfo] = useState<OrderInterface>({
+    paymentMethod: '',
+    shippingAddress: '',
+  });
 
   const [removeProduct] = useMutation(REMOVE_FROM_CART);
   const { data, loading, error } = useQuery(GET_ME);
@@ -85,7 +94,13 @@ export default function ShoppingCartComponent() {
       break;
 
     case STEPS.CHECKOUT_STEP:
-      Component = <CheckoutStep />;
+      Component = (
+        <CheckoutStep
+          orderInfo={orderInfo}
+          setOrderInfo={setOrderInfo}
+          data={data}
+        />
+      );
       break;
 
     default:
@@ -98,8 +113,10 @@ export default function ShoppingCartComponent() {
       <ContentContainer>{Component}</ContentContainer>
       <CompleteShoppingBoxContainer>
         <CompleteShoppingBox
+          step={currentStep}
           changeStep={setCurrentStep}
           shoppingCartItems={data.me.shoppingCart}
+          orderInfo={orderInfo}
         />
       </CompleteShoppingBoxContainer>
     </BoxContainer>
