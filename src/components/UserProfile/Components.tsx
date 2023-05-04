@@ -117,10 +117,12 @@ export const ActiveOrderStockLabel = styled.div`
   color: rgba(0, 0, 0, 0.55);
 `;
 export const ImgProfile = styled.img`
+  flex: 1;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
   @media (max-width: 768px) {
     width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 150px;
   }
 `;

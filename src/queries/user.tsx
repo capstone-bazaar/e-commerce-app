@@ -77,6 +77,26 @@ export const GET_ME = gql`
         }
         imageURLs
       }
+      products {
+        id
+        price
+        currency
+        stockCount
+        seller {
+          avatarURL
+          fullName
+        }
+        imageURLs
+        comments {
+          user {
+            fullName
+          }
+          comment
+          rate
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;

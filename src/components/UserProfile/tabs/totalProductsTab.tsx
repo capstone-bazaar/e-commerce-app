@@ -1,10 +1,11 @@
 import { CardBox } from '../../Cards/CardStyles';
 import Card from '../../Cards/Cards';
 
-export default function TotalPrdouctTab({ data }: { data: any }) {
+// eslint-disable-next-line
+export default function TotalProductTab({ data }: { data: any }) {
   return (
     <CardBox style={{ marginTop: '10px' }}>
-      {data.findAllProducts.map(
+      {data.map(
         (
           product: {
             price: string;
@@ -20,6 +21,7 @@ export default function TotalPrdouctTab({ data }: { data: any }) {
         ) => {
           return (
             <Card
+              key={index}
               price={product.price}
               image={product.imageURL}
               productName={product.productName}

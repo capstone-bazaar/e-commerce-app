@@ -1,5 +1,4 @@
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import GET_PRODUCTS from '../components/Cards/CardData';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import {
@@ -18,9 +17,9 @@ import {
   ProfileLabel,
   RightBox,
 } from '../components/UserProfile/Components';
-import indian from '../components/UserProfile/Image/indian-senior.png';
 import ActiveOrderTab from '../components/UserProfile/tabs/activeOrderTab';
-import TotalPrdouctTab from '../components/UserProfile/tabs/totalProductsTab';
+import TotalProductTab from '../components/UserProfile/tabs/totalProductsTab';
+import { GET_ME } from '../queries/user';
 
 enum TABS {
   TOTAL_PRODUCT_TAB,
@@ -28,7 +27,7 @@ enum TABS {
 }
 
 export default function UserProfile() {
-  const { loading, error, data } = useQuery(GET_PRODUCTS);
+  const { loading, error, data } = useQuery(GET_ME);
   const [activeTab, setActiveTab] = useState(TABS.TOTAL_PRODUCT_TAB);
 
   let activeComponent;
@@ -38,11 +37,11 @@ export default function UserProfile() {
       activeComponent = <ActiveOrderTab />;
       break;
     case TABS.TOTAL_PRODUCT_TAB:
-      activeComponent = <TotalPrdouctTab data={data} />;
+      activeComponent = <TotalProductTab data={data?.me?.products} />;
       break;
 
     default:
-      activeComponent = <TotalPrdouctTab data={data} />;
+      activeComponent = <TotalProductTab data={data?.me?.products} />;
       break;
   }
   const handleButtonClick = (tab: TABS) => {
@@ -58,13 +57,12 @@ export default function UserProfile() {
 
   return (
     <PageWithNavbar>
-      <title>Welcome</title>
       <ProfileContainer>
         <ProfileImgBox>
-          <ImgProfile src={indian} />
+          <ImgProfile src={data.me.avatarURL} />
           <LabelBox>
-            <ProfileLabel>Jhon Doe Özdemir</ProfileLabel>
-            <DescriptionLabel>Tarladan Kapınıza</DescriptionLabel>
+            <ProfileLabel>{data.me.fullName}</ProfileLabel>
+            <DescriptionLabel>{data.me.bio}</DescriptionLabel>
           </LabelBox>
         </ProfileImgBox>
         <RightBox>
@@ -72,11 +70,15 @@ export default function UserProfile() {
             onClick={() => handleButtonClick(TABS.TOTAL_PRODUCT_TAB)}
           >
             <ProductLabel>Total Product</ProductLabel>
-            <ProductLabelStockCounter>60</ProductLabelStockCounter>
+            <ProductLabelStockCounter>
+              {data?.me?.products?.length || 0}
+            </ProductLabelStockCounter>
           </ProductProfileBox>
           <OrderBox onClick={() => handleButtonClick(TABS.ACTIVE_ORDER_TAB)}>
             <ActiveOrderLabel>Active Order</ActiveOrderLabel>
-            <ActiveOrderStockLabel>60</ActiveOrderStockLabel>
+            <ActiveOrderStockLabel>
+              {data?.me?.activeOrders?.length || 0}
+            </ActiveOrderStockLabel>
           </OrderBox>
         </RightBox>
       </ProfileContainer>

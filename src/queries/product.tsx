@@ -29,3 +29,29 @@ export const GET_PRODUCT = gql`
     }
   }
 `;
+
+export const GET_ALL_PRODUCTS = gql`
+  query GetProducts {
+    findAllProducts {
+      id
+      price
+      currency
+      stockCount
+      seller {
+        avatarURL
+        fullName
+      }
+      imageURLs
+      comments {
+        user {
+          fullName
+        }
+        comment
+        rate
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+

@@ -14,8 +14,6 @@ export default function TotalProduct() {
   }
   return (
     <PageWithNavbar>
-      <h1>Total Product Page</h1>
-      <label>welcome to the product page</label>
       <CardBox style={{ marginTop: '10px' }}>
         {data.findAllProducts.map(
           (
