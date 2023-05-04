@@ -16,6 +16,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import ParagraphSlicer from '../ParagraphSlicer/ParagraphSlicer';
 export default function Card({
   price,
   image,
@@ -25,6 +26,7 @@ export default function Card({
   sellerName,
   points,
   currency,
+  onClick,
 }: {
   price: string;
   image: string;
@@ -34,9 +36,10 @@ export default function Card({
   sellerName: string;
   points: string;
   currency: string;
+  onClick?: () => void;
 }) {
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       <ImgContainer>
         <img
           alt="s"
@@ -53,7 +56,9 @@ export default function Card({
       </ImgContainer>
       <InsideContainer>
         <TitleText>{title}</TitleText>
-        <CardLabel>{description}</CardLabel>
+        <CardLabel>
+          <ParagraphSlicer paragraph={description} slice={100} />
+        </CardLabel>
       </InsideContainer>
       <InsideContainerTwo>
         <BoxOne>

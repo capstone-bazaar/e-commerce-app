@@ -26,6 +26,7 @@ const Title = styled.div`
 export default function AddProductForm() {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [base64List, setBase64List] = useState<Array<string>>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [productForm, setProductForm] = useState({
     title: '',
@@ -77,6 +78,7 @@ export default function AddProductForm() {
 
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
       await addProduct({
         variables: {
           fields: {
@@ -87,6 +89,8 @@ export default function AddProductForm() {
           },
         },
       });
+
+      window.location.reload();
     } catch (error) {
       toast.error('Something went wrong');
     }
@@ -128,6 +132,7 @@ export default function AddProductForm() {
         </Upload>
 
         <Button
+          disabled={isLoading}
           onClick={handleSubmit}
           style={{ width: '100%', marginTop: '20px' }}
         >

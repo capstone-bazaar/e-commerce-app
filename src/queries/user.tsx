@@ -82,6 +82,8 @@ export const GET_ME = gql`
         price
         currency
         stockCount
+        title
+        description
         seller {
           avatarURL
           fullName

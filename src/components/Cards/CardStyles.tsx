@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 export const CardContainer = styled.div`
   box-sizing: border-box;
-  width: 270px;
+  width: 240px;
   height: 300px;
   cursor: pointer;
   border: 1px solid #000000;
@@ -12,13 +12,14 @@ export const CardContainer = styled.div`
   padding: 13px;
   max-width: 270px;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 export const AddProductCard = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 270px;
+  width: 240px;
   height: 300px;
   cursor: pointer;
   border: 4px dashed #575757;
@@ -91,17 +92,12 @@ export const VerticalLine = styled.div`
 `;
 
 export const CardBox = styled.div`
-  display: flex;
-  justify-content: start;
-  gap: 20px;
-  margin: 90px;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    margin: 0 auto;
-  }
-  flex-wrap: wrap;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  width: 100%;
 `;
 export const ProductPrice = styled.div`
   box-sizing: border-box;

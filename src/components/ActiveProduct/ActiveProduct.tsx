@@ -32,6 +32,7 @@ export default function ActiveProduct() {
           ) => {
             return (
               <Card
+                key={index}
                 price={product.price}
                 image={product.imageURL}
                 title={product.title}
