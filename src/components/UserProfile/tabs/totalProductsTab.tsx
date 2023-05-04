@@ -9,11 +9,10 @@ export default function TotalProductTab({ data }: { data: any }) {
         (
           product: {
             price: string;
-            imageURL: string;
+            imageURLs: string[];
             productName: string;
             description: string;
-            sellerImage: string;
-            sellerName: string;
+            seller: { fullName: string; avatarURL: string };
             points: string;
             currency: string;
           },
@@ -23,11 +22,11 @@ export default function TotalProductTab({ data }: { data: any }) {
             <Card
               key={index}
               price={product.price}
-              image={product.imageURL}
+              image={product.imageURLs[0]}
               productName={product.productName}
               description={product.description}
-              sellerImage={product.sellerImage}
-              sellerName={product.sellerName}
+              sellerImage={product.seller.avatarURL}
+              sellerName={product.seller.fullName}
               points={product.points}
               currency={product.currency}
             />
