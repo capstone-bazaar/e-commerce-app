@@ -14,7 +14,7 @@ export default function TotalProductTab({ data }: { data: any }) {
       <Drawer isOpen={isDrawerOpen} setDrawerIsOpen={setIsDrawerOpen}>
         <AddProductForm />
       </Drawer>
-      <AddProductCard onClick={() => setIsDrawerOpen(true)}>
+      <AddProductCard id='add-product-card' onClick={() => setIsDrawerOpen(true)}>
         <AddIcon />
       </AddProductCard>
       {data.map(

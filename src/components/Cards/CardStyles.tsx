@@ -4,15 +4,20 @@ export const CardContainer = styled.div`
   width: 240px;
   height: 300px;
   cursor: pointer;
-  border: 1px solid #000000;
+  background-color: white;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 13px;
+  padding: 20px;
   max-width: 270px;
   flex-wrap: wrap;
   justify-content: space-between;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const AddProductCard = styled.div`
@@ -26,22 +31,12 @@ export const AddProductCard = styled.div`
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   display: flex;
-  transition: background-color 0.5s ease-in-out;
+
+  transition: transform 0.2s;
 
   &:hover {
-    animation: blink 1s linear infinite;
-  }
-
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.2;
-    }
-    100% {
-      opacity: 1;
-    }
+    border: 4px dashed #ea004b;
+    transform: scale(1.05);
   }
 `;
 

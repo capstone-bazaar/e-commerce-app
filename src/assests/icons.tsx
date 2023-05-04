@@ -381,6 +381,7 @@ export const AddIcon = () => {
       fill-rule="nonzero"
     >
       <g
+        id="add-icon"
         fill="#575757"
         fill-rule="nonzero"
         stroke="none"

@@ -2,20 +2,18 @@ import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import {
-  ActiveOrderLabel,
   ActiveOrderStockLabel,
   DescriptionLabel,
   HorizontalLine,
   ImgProfile,
   LabelBox,
-  OrderBox,
-  ProductLabel,
   ProductLabelStockCounter,
-  ProductProfileBox,
   ProfileContainer,
   ProfileImgBox,
   ProfileLabel,
   RightBox,
+  TabBox,
+  TabContainer,
 } from '../components/UserProfile/Components';
 import ActiveOrderTab from '../components/UserProfile/tabs/activeOrderTab';
 import TotalProductTab from '../components/UserProfile/tabs/totalProductsTab';
@@ -74,22 +72,24 @@ export default function UserProfile() {
               </LabelBox>
             </ProfileImgBox>
             <RightBox>
-              <ProductProfileBox
+              <TabBox
+                isActive={activeTab === TABS.TOTAL_PRODUCT_TAB}
                 onClick={() => handleButtonClick(TABS.TOTAL_PRODUCT_TAB)}
               >
-                <ProductLabel>Total Product</ProductLabel>
+                <TabContainer>Total Product</TabContainer>
                 <ProductLabelStockCounter>
                   {data?.me?.products?.length || 0}
                 </ProductLabelStockCounter>
-              </ProductProfileBox>
-              <OrderBox
+              </TabBox>
+              <TabBox
+                isActive={activeTab === TABS.ACTIVE_ORDER_TAB}
                 onClick={() => handleButtonClick(TABS.ACTIVE_ORDER_TAB)}
               >
-                <ActiveOrderLabel>Active Order</ActiveOrderLabel>
+                <TabContainer>Active Order</TabContainer>
                 <ActiveOrderStockLabel>
                   {data?.me?.activeOrders?.length || 0}
                 </ActiveOrderStockLabel>
-              </OrderBox>
+              </TabBox>
             </RightBox>
           </ProfileContainer>
           <HorizontalLine />
