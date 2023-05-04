@@ -45,7 +45,7 @@ export default function Card({
           src={image}
           style={{
             width: '100%',
-            height: '110px',
+            height: '120px',
             borderRadius: '20px 20px 1px 1px',
           }}
         />
@@ -56,7 +56,7 @@ export default function Card({
       <InsideContainer>
         <TitleText>{title}</TitleText>
         <CardLabel>
-          <ParagraphSlicer paragraph={description} slice={100} />
+          <ParagraphSlicer paragraph={description} slice={50} />
         </CardLabel>
       </InsideContainer>
       <InsideContainerTwo>
