@@ -62,8 +62,10 @@ export default function CartStep({
   data,
 }: {
   onRemoveProduct: (productId: string) => void;
+  // eslint-disable-next-line
   data: any;
 }) {
+  // eslint-disable-next-line
   return data.me.shoppingCart.map((item: any, index: number) => (
     <Wrapper key={index}>
       <div onClick={() => onRemoveProduct(item.id)}>

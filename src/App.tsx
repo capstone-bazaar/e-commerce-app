@@ -1,14 +1,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './app.css';
 import { AuthProvider } from './context/AuthContext';
 import LoginPage from './Pages/Login';
 import MainPage from './Pages/Main';
 import NotFoundPage from './Pages/NotFoundPage';
 import ProductPage from './Pages/Product';
+import ProductsPage from './Pages/ProductPage';
 import SignUp from './Pages/Signup';
 import VerifyEmailPage from './Pages/VerifyEmailPage';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { ShoppingCartPage } from './Pages/ShoppingCart';
 import OrdersPage from './Pages/OrdersPage';
+import UserProfile from './Pages/UserProfile';
+import TotalProduct from './components/TotalProduct/TotalProduct';
+import ActiveProduct from './components/ActiveProduct/ActiveProduct';
 
 function App() {
   return (
@@ -29,6 +34,10 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<OrdersPage />} path="/orders"></Route>
           </Route>
+          <Route element={<ProductsPage />} path="/product"></Route>
+          <Route element={<UserProfile />} path="/profile"></Route>
+          <Route element={<TotalProduct />} path="/total-product"></Route>
+          <Route element={<ActiveProduct />} path="/active-product"></Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
