@@ -19,7 +19,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 export default function Card({
   price,
   image,
-  productName,
+  title,
   description,
   sellerImage,
   sellerName,
@@ -28,7 +28,7 @@ export default function Card({
 }: {
   price: string;
   image: string;
-  productName: string;
+  title: string;
   description: string;
   sellerImage: string;
   sellerName: string;
@@ -52,7 +52,7 @@ export default function Card({
         </ProductPrice>
       </ImgContainer>
       <InsideContainer>
-        <TitleText>{productName}</TitleText>
+        <TitleText>{title}</TitleText>
         <CardLabel>{description}</CardLabel>
       </InsideContainer>
       <InsideContainerTwo>

@@ -14,6 +14,36 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+export const AddProductCard = styled.div`
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 270px;
+  height: 300px;
+  cursor: pointer;
+  border: 4px dashed #575757;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  display: flex;
+  transition: background-color 0.5s ease-in-out;
+
+  &:hover {
+    animation: blink 1s linear infinite;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
 export const ImgContainer = styled.div`
   border-radius: 20px 20px 1px 1px;
   position: relative;
@@ -79,8 +109,8 @@ export const ProductPrice = styled.div`
   border-radius: 20px;
   width: 75px;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   background: #ffffff;
   text-align: center;
   font-weight: 800;

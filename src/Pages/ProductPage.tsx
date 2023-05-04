@@ -35,9 +35,8 @@ export default function ProductsPage() {
             product: {
               price: string;
               imageURLs: string[];
-              productName: string;
+              title: string;
               description: string;
-
               seller: { fullName: string; avatarURL: string };
               points: string;
               currency: string;
@@ -48,7 +47,7 @@ export default function ProductsPage() {
               <Card
                 price={product.price}
                 image={product.imageURLs[0]}
-                productName={product.productName}
+                title={product.title}
                 description={product.description}
                 sellerImage={product.seller.avatarURL}
                 sellerName={product.seller.fullName}

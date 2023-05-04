@@ -20,7 +20,7 @@ export default function TotalProduct() {
             product: {
               price: string;
               imageURL: string;
-              productName: string;
+              title: string;
               description: string;
               sellerImage: string;
               sellerName: string;
@@ -33,7 +33,7 @@ export default function TotalProduct() {
               <Card
                 price={product.price}
                 image={product.imageURL}
-                productName={product.productName}
+                title={product.title}
                 description={product.description}
                 sellerImage={product.sellerImage}
                 sellerName={product.sellerName}
