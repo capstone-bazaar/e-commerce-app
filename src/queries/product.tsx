@@ -31,8 +31,8 @@ export const GET_PRODUCT = gql`
 `;
 
 export const GET_ALL_PRODUCTS = gql`
-  query GetProducts {
-    findAllProducts {
+  query GetProduct($filters: FilterInput) {
+    findAllProducts(filters: $filters) {
       id
       price
       title

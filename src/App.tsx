@@ -5,7 +5,7 @@ import LoginPage from './Pages/Login';
 import MainPage from './Pages/Main';
 import NotFoundPage from './Pages/NotFoundPage';
 import ProductPage from './Pages/Product';
-import ProductsPage from './Pages/ProductPage';
+import ProductsPage from './Pages/MainProductPage';
 import SignUp from './Pages/Signup';
 import VerifyEmailPage from './Pages/VerifyEmailPage';
 import { PrivateRoute } from './routes/PrivateRoute';
@@ -34,7 +34,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<OrdersPage />} path="/orders"></Route>
           </Route>
-          <Route element={<ProductsPage />} path="/product"></Route>
+          <Route element={<ProductsPage />} path="/products"></Route>
           <Route element={<UserProfile />} path="/profile"></Route>
           <Route element={<TotalProduct />} path="/total-product"></Route>
           <Route element={<ActiveProduct />} path="/active-product"></Route>
