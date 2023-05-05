@@ -11,6 +11,7 @@ import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { GET_PRODUCT } from '../queries/product';
 import { ADD_TO_CART, GET_ME } from '../queries/user';
 import { ToastContainer, toast } from 'react-toastify';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const Container = styled.div`
   display: flex;
