@@ -21,7 +21,7 @@ export default function ActiveProduct() {
             product: {
               price: string;
               imageURL: string;
-              productName: string;
+              title: string;
               description: string;
               sellerImage: string;
               sellerName: string;
@@ -32,9 +32,10 @@ export default function ActiveProduct() {
           ) => {
             return (
               <Card
+                key={index}
                 price={product.price}
                 image={product.imageURL}
-                productName={product.productName}
+                title={product.title}
                 description={product.description}
                 sellerImage={product.sellerImage}
                 sellerName={product.sellerName}

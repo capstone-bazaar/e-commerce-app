@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BoxOne,
   CardContainer,
@@ -16,34 +15,37 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import ParagraphSlicer from '../ParagraphSlicer/ParagraphSlicer';
 export default function Card({
   price,
   image,
-  productName,
+  title,
   description,
   sellerImage,
   sellerName,
   points,
   currency,
+  onClick,
 }: {
   price: string;
   image: string;
-  productName: string;
+  title: string;
   description: string;
   sellerImage: string;
   sellerName: string;
   points: string;
   currency: string;
+  onClick?: () => void;
 }) {
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       <ImgContainer>
         <img
           alt="s"
           src={image}
           style={{
             width: '100%',
-            height: '110px',
+            height: '120px',
             borderRadius: '20px 20px 1px 1px',
           }}
         />
@@ -52,8 +54,10 @@ export default function Card({
         </ProductPrice>
       </ImgContainer>
       <InsideContainer>
-        <TitleText>{productName}</TitleText>
-        <CardLabel>{description}</CardLabel>
+        <TitleText>{title}</TitleText>
+        <CardLabel>
+          <ParagraphSlicer paragraph={description} slice={50} />
+        </CardLabel>
       </InsideContainer>
       <InsideContainerTwo>
         <BoxOne>

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface TabBoxtProps {
+  isActive: boolean;
+}
+
 export const ProfileLabel = styled.label`
   font-style: normal;
   font-weight: 800;
@@ -32,9 +36,10 @@ export const LabelBox = styled.div`
   justify-content: center;
   margin-left: 10px;
 `;
-export const ProductProfileBox = styled.div`
+export const TabBox = styled.div<TabBoxtProps>`
   background-color: #ffffff;
-  border: 1px dashed #000000;
+  border: ${(props) =>
+    props.isActive ? '3px solid #ea004b' : '1px solid rgba(0, 0, 0, 0.2)'};
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   width: 170px;
@@ -50,7 +55,6 @@ export const ProfileContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   margin-left: 0;
-  margin-top: 100px;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -80,12 +84,14 @@ export const HorizontalLine = styled.div`
 export const RightBox = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
   @media (max-width: 768px) {
     margin-top: 15px;
   }
 `;
-export const ProductLabel = styled.div`
+export const TabContainer = styled.div`
   font-size: 20px;
   font-weight: 800;
 `;
@@ -98,15 +104,7 @@ export const ProductLabelStockCounter = styled.div`
 
   color: rgba(0, 0, 0, 0.55);
 `;
-export const ActiveOrderLabel = styled.div`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 24px;
 
-  color: #000000;
-`;
 export const ActiveOrderStockLabel = styled.div`
   font-family: 'Inter';
   font-style: normal;
@@ -117,12 +115,11 @@ export const ActiveOrderStockLabel = styled.div`
   color: rgba(0, 0, 0, 0.55);
 `;
 export const ImgProfile = styled.img`
-  flex: 1;
   border-radius: 50%;
   width: 150px;
   height: 150px;
   @media (max-width: 768px) {
     width: 150px;
-  height: 150px;
+    height: 150px;
   }
 `;

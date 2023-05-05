@@ -1,17 +1,43 @@
 import styled from 'styled-components';
 export const CardContainer = styled.div`
   box-sizing: border-box;
-  width: 270px;
+  width: 240px;
   height: 300px;
   cursor: pointer;
-  border: 1px solid #000000;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 13px;
+  padding: 20px;
   max-width: 270px;
   flex-wrap: wrap;
+  justify-content: space-between;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+export const AddProductCard = styled.div`
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 240px;
+  height: 300px;
+  cursor: pointer;
+  border: 4px dashed #575757;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  display: flex;
+
+  transition: transform 0.2s;
+
+  &:hover {
+    border: 4px dashed #ea004b;
+    transform: scale(1.05);
+  }
 `;
 
 export const ImgContainer = styled.div`
@@ -61,17 +87,12 @@ export const VerticalLine = styled.div`
 `;
 
 export const CardBox = styled.div`
-  display: flex;
-  justify-content: start;
-  gap: 20px;
-  margin: 90px;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    margin: 0 auto;
-  }
-  flex-wrap: wrap;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  width: 100%;
 `;
 export const ProductPrice = styled.div`
   box-sizing: border-box;
@@ -79,8 +100,8 @@ export const ProductPrice = styled.div`
   border-radius: 20px;
   width: 75px;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   background: #ffffff;
   text-align: center;
   font-weight: 800;

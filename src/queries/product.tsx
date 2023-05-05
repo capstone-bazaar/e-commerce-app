@@ -35,6 +35,7 @@ export const GET_ALL_PRODUCTS = gql`
     findAllProducts {
       id
       price
+      title
       currency
       stockCount
       seller {
@@ -55,3 +56,10 @@ export const GET_ALL_PRODUCTS = gql`
   }
 `;
 
+export const ADD_PRODUCT = gql`
+  mutation AddProduct($fields: ProductInput) {
+    addProduct(fields: $fields) {
+      id
+    }
+  }
+`;

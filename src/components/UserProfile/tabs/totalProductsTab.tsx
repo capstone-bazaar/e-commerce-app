@@ -1,16 +1,28 @@
-import { CardBox } from '../../Cards/CardStyles';
+import { useState } from 'react';
+import { AddIcon } from '../../../assests/icons';
+import { AddProductCard, CardBox } from '../../Cards/CardStyles';
 import Card from '../../Cards/Cards';
+import Drawer from '../../Drawer/Drawer';
+import AddProductForm from '../AddProductContent';
 
 // eslint-disable-next-line
 export default function TotalProductTab({ data }: { data: any }) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
   return (
     <CardBox style={{ marginTop: '10px' }}>
+      <Drawer isOpen={isDrawerOpen} setDrawerIsOpen={setIsDrawerOpen}>
+        <AddProductForm />
+      </Drawer>
+      <AddProductCard id='add-product-card' onClick={() => setIsDrawerOpen(true)}>
+        <AddIcon />
+      </AddProductCard>
       {data.map(
         (
           product: {
             price: string;
             imageURLs: string[];
-            productName: string;
+            title: string;
             description: string;
             seller: { fullName: string; avatarURL: string };
             points: string;
@@ -23,7 +35,7 @@ export default function TotalProductTab({ data }: { data: any }) {
               key={index}
               price={product.price}
               image={product.imageURLs[0]}
-              productName={product.productName}
+              title={product.title}
               description={product.description}
               sellerImage={product.seller.avatarURL}
               sellerName={product.seller.fullName}

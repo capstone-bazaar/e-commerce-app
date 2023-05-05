@@ -6,6 +6,7 @@ const GET_TOTAL_PRODUCT = gql`
       id
       price
       currency
+      description
       stockCount
       seller {
         avatarURL {
