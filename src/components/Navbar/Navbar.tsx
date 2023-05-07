@@ -96,9 +96,7 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
               </ShoppingCartContainer>
               <Dropdown menu={{ items }}>
                 <Space>
-                  <UserProfileIconContainer
-                    onClick={() => navigate('/profile')}
-                  >
+                  <UserProfileIconContainer>
                     <UserProfileIcon />
                   </UserProfileIconContainer>
                 </Space>
