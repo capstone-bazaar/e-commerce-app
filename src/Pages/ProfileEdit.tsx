@@ -7,7 +7,7 @@ import { Button } from '../components/Buttons/Button';
 import { REGISTER } from '../queries/user';
 import { Input } from '../components/Input/Input';
 import { Form } from '../components/Forms/Form';
-import { object, string, ValidationError } from 'yup';
+import { object, string, ValidationError, array } from 'yup';
 import styled from 'styled-components';
 import { AddButton } from '../components/Buttons/AddButton';
 export const ErrorMessage = styled.text`
@@ -15,25 +15,28 @@ export const ErrorMessage = styled.text`
   color: red;
   font-size: small;
 `;
+
+const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-constent: center;
+  flex-direction: column;
+`;
 export default function EditPage() {
   const editSchema = object().shape({
     fullName: string().required('Fullname is required'),
-    phoneNumber: string().required('Phone number is required'),
-    address: string().required('Address is required'),
+    phone: string().required('Phone number is required'),
+    address: array(string().required('Address is required')),
     email: string().email().required('Email is required'),
-
-    password: string()
-      .min(8, 'Password must be at least 8 characters')
-      .required('Password is required'),
   });
   const [register, { error }] = useMutation(REGISTER);
 
   const [editData, setEditData] = useState({
     fullName: '',
-    phoneNumber: '',
-    address: '',
+    phone: '',
+    address: [''],
     email: '',
-    password: '',
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -41,6 +44,12 @@ export default function EditPage() {
 
   const handleChangeEditData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
+
+    if (name === 'address') {
+      const formValues = { ...editData };
+      formValues.address[0] = value;
+      return setEditData({ ...formValues });
+    }
     setEditData({ ...editData, [name]: value });
   };
 
@@ -49,14 +58,13 @@ export default function EditPage() {
       .validate(editData)
       .then(async () => {
         if (!errors || errors === '') {
-          const { fullName, phoneNumber, address, email, password } = editData;
+          const { fullName, phone, address, email } = editData;
           const { data } = await register({
             variables: {
               fullName,
-              phoneNumber,
+              phone,
               address,
               email,
-              password,
             },
           });
           if (!error && data && data.register) {
@@ -74,10 +82,9 @@ export default function EditPage() {
   useEffect(() => {
     if (
       editData.fullName &&
-      editData.phoneNumber &&
+      editData.phone &&
       editData.address &&
-      editData.email &&
-      editData.password
+      editData.email
     ) {
       return setIsButtonDisabled(false);
     } else {
@@ -88,7 +95,7 @@ export default function EditPage() {
   return (
     <PageWithNavbar>
       <ContainerBox>
-        <Container>
+        <FormWrapper>
           <Label>Full Name</Label>
           <Input
             type={'text'}
@@ -129,22 +136,12 @@ export default function EditPage() {
             }}
           ></Input>
 
-          <Label>Password</Label>
-          <Input
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              handleChangeEditData(event);
-            }}
-            type={'password'}
-            placeholder={'Please enter your password'}
-            name={'password'}
-          />
-
           <br></br>
           {errors && <ErrorMessage>{errors}</ErrorMessage>}
           <Button onClick={handleOnClickButton} disabled={isButtonDisabled}>
             Save
           </Button>
-        </Container>
+        </FormWrapper>
       </ContainerBox>
     </PageWithNavbar>
   );

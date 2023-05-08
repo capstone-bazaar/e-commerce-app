@@ -8,7 +8,7 @@ import ProductPage from './Pages/Product';
 import ProductsPage from './Pages/MainProductPage';
 import SignUp from './Pages/Signup';
 import VerifyEmailPage from './Pages/VerifyEmailPage';
-import EditPage from './Pages/Edit';
+import EditPage from './Pages/ProfileEdit';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { ShoppingCartPage } from './Pages/ShoppingCart';
 import OrdersPage from './Pages/OrdersPage';
