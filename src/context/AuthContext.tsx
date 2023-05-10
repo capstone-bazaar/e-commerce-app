@@ -62,16 +62,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = () => {
     if (localStorage.getItem('token')) {
       localStorage.removeItem('token');
-      localStorage.setItem('isAuth', 'false');
     }
 
     if (sessionStorage.getItem('token')) {
       sessionStorage.removeItem('token');
-      sessionStorage.setItem('isAuth', 'false');
     }
 
     setIsAuth(false);
-    navigate('/', { replace: true });
+    return navigate('/', { replace: true });
   };
 
   return (

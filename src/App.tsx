@@ -12,8 +12,6 @@ import { PrivateRoute } from './routes/PrivateRoute';
 import { ShoppingCartPage } from './Pages/ShoppingCart';
 import OrdersPage from './Pages/OrdersPage';
 import UserProfile from './Pages/UserProfile';
-import TotalProduct from './components/TotalProduct/TotalProduct';
-import ActiveProduct from './components/ActiveProduct/ActiveProduct';
 
 function App() {
   return (
@@ -34,10 +32,12 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<OrdersPage />} path="/orders"></Route>
           </Route>
-          <Route element={<ProductsPage />} path="/products"></Route>
-          <Route element={<UserProfile />} path="/profile"></Route>
-          <Route element={<TotalProduct />} path="/total-product"></Route>
-          <Route element={<ActiveProduct />} path="/active-product"></Route>
+          <Route element={<PrivateRoute />}>
+            <Route element={<ProductsPage />} path="/products"></Route>
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route element={<UserProfile />} path="/profile"></Route>
+          </Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
