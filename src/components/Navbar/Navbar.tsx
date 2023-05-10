@@ -12,7 +12,7 @@ import useShoppingCartStore from '../../stores/ShoppingCartStore';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../queries/user';
 import { useNavigate } from 'react-router-dom';
-import { Dropdown, Space, MenuProps } from 'antd';
+import { Dropdown, MenuProps } from 'antd';
 import { useAuth } from '../../context/AuthContext';
 
 const ShoppingCartContainer = styled.div`
@@ -35,16 +35,20 @@ const ItemCounterContainer = styled.div`
   font-size: 10px;
 `;
 const UserProfileIconContainer = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 20px;
 `;
 
+const MenuItem = styled.a`
+  margin-left: 10px;
+`;
+
 const Navbar = ({ button }: { button: React.ReactNode }) => {
-  const isAuth: boolean = localStorage.getItem('isAuth') === 'true';
+  const { isAuth } = useAuth();
   const itemCount = useShoppingCartStore((state) => state.itemCount);
   const initializeItemCount = useShoppingCartStore(
     (state) => state.initializeItemCount
@@ -56,17 +60,17 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: <div onClick={() => navigate('/orders')}>My Orders</div>,
+      label: <MenuItem onClick={() => navigate('/orders')}>My Orders</MenuItem>,
       icon: <OrdersIcon />,
     },
     {
       key: '2',
-      label: <div onClick={() => navigate('/profile')}>Settings</div>,
+      label: <MenuItem onClick={() => navigate('/profile')}>Settings</MenuItem>,
       icon: <SettingsIcon />,
     },
     {
       key: '3',
-      label: <div onClick={logout}>Logout</div>,
+      label: <MenuItem onClick={logout}>Logout</MenuItem>,
       icon: <LogoutIcon />,
     },
   ];
@@ -81,7 +85,7 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
   return (
     <>
       <Nav>
-        <NavLink to="/">
+        <NavLink to={isAuth ? '/products' : '/'}>
           <Logo />
         </NavLink>{' '}
         <NavMenu>
@@ -95,11 +99,9 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
                 )}
               </ShoppingCartContainer>
               <Dropdown menu={{ items }}>
-                <Space>
-                  <UserProfileIconContainer>
-                    <UserProfileIcon />
-                  </UserProfileIconContainer>
-                </Space>
+                <UserProfileIconContainer>
+                  <UserProfileIcon />
+                </UserProfileIconContainer>
               </Dropdown>
             </>
           )}

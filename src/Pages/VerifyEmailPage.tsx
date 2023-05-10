@@ -6,6 +6,7 @@ import { DoneIcon, ErrorIcon } from '../assests/icons';
 import { Button } from '../components/Buttons/Button';
 import { Link, useSearchParams } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
+import { useAuth } from '../context/AuthContext';
 
 const VERIFY_USER = gql`
   mutation VerifyUser($verificationID: String, $id: String) {
@@ -29,7 +30,7 @@ const TextWrapper = styled.div`
 
 export default function VerifyEmailPage() {
   const [error, setError] = useState(false);
-  const [isUserAuth] = useState(localStorage.getItem('isAuth'));
+  const { isAuth } = useAuth();
 
   const [verifyUser, { loading }] = useMutation(VERIFY_USER);
   const [querystrings] = useSearchParams();
@@ -82,7 +83,7 @@ export default function VerifyEmailPage() {
                 verify your account.
               </TextWrapper>
 
-              {isUserAuth && (
+              {isAuth && (
                 <Button style={{ width: '100%' }}>
                   Resent Verification Link
                 </Button>

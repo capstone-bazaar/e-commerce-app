@@ -438,6 +438,8 @@ export const SearchIcon = () => {
 export const UserProfileIcon = () => {
   return (
     <svg
+      fill="#ea004b"
+      fill-rule="nonzero"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 50 50"
       width="35px"
@@ -450,6 +452,8 @@ export const UserProfileIcon = () => {
 export const SettingsIcon = () => {
   return (
     <svg
+      fill="#ea004b"
+      fill-rule="nonzero"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 50 50"
       width="25px"
@@ -462,6 +466,8 @@ export const SettingsIcon = () => {
 export const LogoutIcon = () => {
   return (
     <svg
+      fill="#ea004b"
+      fill-rule="nonzero"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 50 50"
       width="25px"
@@ -474,6 +480,8 @@ export const LogoutIcon = () => {
 export const OrdersIcon = () => {
   return (
     <svg
+      fill="#ea004b"
+      fill-rule="nonzero"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 30 30"
       width="25px"

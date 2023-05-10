@@ -14,6 +14,7 @@ interface ContextInterface {
     rememberMe: boolean;
   }) => void;
   logout: () => void;
+  setIsAuth: (value: boolean) => void;
 }
 
 /* eslint-disable */
@@ -22,6 +23,7 @@ const AuthContext = createContext<ContextInterface>({
   login: () => {},
   logout: () => {},
   signup: () => {},
+  setIsAuth: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -58,14 +60,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+
+    if (sessionStorage.getItem('token')) {
+      sessionStorage.removeItem('token');
+    }
+
     setIsAuth(false);
-    navigate('/', { replace: true });
+    return navigate('/', { replace: true });
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, signup }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, signup, setIsAuth }}>
       {children}
     </AuthContext.Provider>
   );
