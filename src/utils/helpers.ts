@@ -7,4 +7,12 @@ const getBase64 = (file: File) => {
   });
 };
 
-export { getBase64 };
+const isTokenExpired = (token: string) => {
+  const tokenPayload = token.split('.')[1];
+  const decodedPayload = atob(tokenPayload);
+  const { exp } = JSON.parse(decodedPayload);
+  const currentTime = Math.floor(Date.now() / 1000);
+  return exp < currentTime;
+};
+
+export { getBase64, isTokenExpired };

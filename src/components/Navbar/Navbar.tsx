@@ -44,7 +44,7 @@ const UserProfileIconContainer = styled.div`
 `;
 
 const Navbar = ({ button }: { button: React.ReactNode }) => {
-  const isAuth: boolean = localStorage.getItem('isAuth') === 'true';
+  const { isAuth } = useAuth();
   const itemCount = useShoppingCartStore((state) => state.itemCount);
   const initializeItemCount = useShoppingCartStore(
     (state) => state.initializeItemCount
@@ -81,7 +81,7 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
   return (
     <>
       <Nav>
-        <NavLink to="/">
+        <NavLink to={isAuth ? '/products' : '/'}>
           <Logo />
         </NavLink>{' '}
         <NavMenu>
