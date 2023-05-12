@@ -63,3 +63,32 @@ export const ADD_PRODUCT = gql`
     }
   }
 `;
+
+export const GET_USER_ADDED_PRODUCTS = gql`
+  query GetUserAddedProduct {
+    me {
+      products {
+        id
+        price
+        currency
+        stockCount
+        title
+        description
+        seller {
+          avatarURL
+          fullName
+        }
+        imageURLs
+        comments {
+          user {
+            fullName
+          }
+          comment
+          rate
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;

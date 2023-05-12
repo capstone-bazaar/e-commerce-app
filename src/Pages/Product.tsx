@@ -8,10 +8,9 @@ import CommentItem from '../components/Comment/CommentItem';
 import ImageCarousel from '../components/ImageCarousel/ImageCarousel';
 import RateStars from '../components/RateStars/RateStars';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import { GET_PRODUCT } from '../queries/product';
+import { GET_PRODUCT, GET_USER_ADDED_PRODUCTS } from '../queries/product';
 import { ADD_TO_CART, GET_ME } from '../queries/user';
 import { ToastContainer, toast } from 'react-toastify';
-import SearchBar from '../components/SearchBar/SearchBar';
 
 const Container = styled.div`
   display: flex;
@@ -90,6 +89,12 @@ export default function ProductPage() {
     variables: { productID: id },
   });
 
+  const {
+    data: userProductData,
+    error: userProductError,
+    loading: userProductLoading,
+  } = useQuery(GET_USER_ADDED_PRODUCTS);
+
   const [addProductToShoppingCart] = useMutation(ADD_TO_CART);
 
   const addToCart = async () => {
@@ -123,8 +128,8 @@ export default function ProductPage() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error!</div>;
+  if (loading || userProductLoading) return <div>Loading...</div>;
+  if (error || userProductError) return <div>Error!</div>;
 
   return (
     <PageWithNavbar>
@@ -162,15 +167,29 @@ export default function ProductPage() {
                 {data.findProductById.seller.fullName}
               </div>
             </SellerContainer>
-            <Button
-              style={{ width: '100%', marginTop: '20px' }}
-              onClick={addToCart}
-            >
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <span style={{ marginRight: '8px' }}>Add to Cart</span>{' '}
-                <AddToCartIcon />
-              </div>
-            </Button>
+            {userProductData?.me?.products
+              //eslint-disable-next-line
+              .map((product: any) => product.id)
+              .includes(id) ? (
+              <Button
+                style={{ width: '100%', marginTop: '20px' }}
+                //TODO: Will add update product feature
+              >
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <span style={{ marginRight: '8px' }}>Update</span>{' '}
+                </div>
+              </Button>
+            ) : (
+              <Button
+                style={{ width: '100%', marginTop: '20px' }}
+                onClick={addToCart}
+              >
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <span style={{ marginRight: '8px' }}>Add to Cart</span>{' '}
+                  <AddToCartIcon />
+                </div>
+              </Button>
+            )}
             <ProductDescription>
               {data.findProductById.description}
             </ProductDescription>
