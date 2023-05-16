@@ -3,6 +3,8 @@ import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { Button } from '../components/Buttons/Button';
 import { ContainerBox } from '../components/container';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
 
 const Container = styled.div`
   width: 100%;
@@ -48,7 +50,17 @@ const Text = styled.text`
 `;
 
 export default function MainPage() {
+  const { isAuth } = useAuth();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth === true) {
+      navigate('/products');
+    }
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <PageWithNavbar
       button={
