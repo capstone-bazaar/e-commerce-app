@@ -6,7 +6,11 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { OrderInterface } from '../Orders/index';
 
-import { SHIPMENT_STATES, SHIPMENT_STATUSES } from '../../utils/constants';
+import {
+  SHIPMENT_STATES,
+  SHIPMENT_STATUSES,
+  rateOptions,
+} from '../../utils/constants';
 import { Tag } from 'antd';
 import { Input } from '../Input/Input';
 import { useState } from 'react';
@@ -64,7 +68,6 @@ const ProductTitle = styled.div`
   font-size: 14px;
   font-weight: 600;
 `;
-
 const InfoSection = styled.div`
   display: flex;
   justify-content: center;
