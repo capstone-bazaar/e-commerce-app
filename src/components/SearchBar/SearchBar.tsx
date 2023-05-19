@@ -21,6 +21,13 @@ export default function SearchBar({
   const handleSearch = () => {
     onSearch(searchString);
   };
+
+  const handlePressedEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <SearchBarContainer>
       <Input
@@ -31,6 +38,7 @@ export default function SearchBar({
           borderBottomRightRadius: 0,
         }}
         onChange={(e) => setSearchString(e.target.value)}
+        onKeyDown={(e) => handlePressedEnterKey(e)}
       />
       <Button
         onClick={handleSearch}
