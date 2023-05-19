@@ -12,6 +12,7 @@ import { PrivateRoute } from './routes/PrivateRoute';
 import { ShoppingCartPage } from './Pages/ShoppingCart';
 import OrdersPage from './Pages/OrdersPage';
 import UserProfile from './Pages/UserProfile';
+import DigitalMoneyPage from './Pages/DigitalMoneyPage';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<UserProfile />} path="/profile"></Route>
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route element={<DigitalMoneyPage />} path="/mb-money"></Route>
           </Route>
         </Routes>
       </AuthProvider>

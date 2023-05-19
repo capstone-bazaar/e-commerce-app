@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+  CreditIcon,
   Logo,
   LogoutIcon,
   OrdersIcon,
@@ -70,6 +71,11 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
     },
     {
       key: '3',
+      label: <MenuItem onClick={() => navigate('/mb-money')}>Balance</MenuItem>,
+      icon: <CreditIcon />,
+    },
+    {
+      key: '4',
       label: <MenuItem onClick={logout}>Logout</MenuItem>,
       icon: <LogoutIcon />,
     },

@@ -117,7 +117,8 @@ export default function CheckoutStep({
             onChange={(e) => handleRadioButtonChange(e)}
           />
           <PaymentMethodLabel htmlFor="paymentMethod">
-            Pay with MB Money (<span style={{ color: '#ea004b' }}>50$</span>)
+            Pay with MB Money (
+            <span style={{ color: '#ea004b' }}>${data?.me?.budget}</span>)
           </PaymentMethodLabel>
         </div>
         <div>
