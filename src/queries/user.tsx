@@ -42,6 +42,7 @@ export const GET_ME = gql`
       fullName
       phone
       avatarURL
+      budget
       email
       orders {
         status
@@ -100,5 +101,11 @@ export const GET_ME = gql`
         updatedAt
       }
     }
+  }
+`;
+
+export const UPLOAD_MONEY = gql`
+  mutation UploadMoney($amount: Int) {
+    uploadMoney(amount: $amount)
   }
 `;

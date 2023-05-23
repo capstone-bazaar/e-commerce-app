@@ -87,3 +87,7 @@ export const SHIPMENT_STATUSES: {
     icon: <CanceledIcon />,
   },
 };
+
+export const MB_MONEY_UPLOAD_OPTIONS: number[] = [
+  5, 10, 20, 50, 100, 200, 500, 1000, 10000,
+];
