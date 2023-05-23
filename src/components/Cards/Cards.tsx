@@ -23,7 +23,7 @@ export default function Card({
   description,
   sellerImage,
   sellerName,
-  points,
+  avgRate,
   currency,
   onClick,
 }: {
@@ -33,7 +33,7 @@ export default function Card({
   description: string;
   sellerImage: string;
   sellerName: string;
-  points: string;
+  avgRate: number;
   currency: string;
   onClick?: () => void;
 }) {
@@ -71,7 +71,7 @@ export default function Card({
         <VerticalLine />
         <IconBox>
           <PointLabel>
-            {points}/5 <FontAwesomeIcon icon={faStar} />
+            {avgRate}/5 <FontAwesomeIcon icon={faStar} />
           </PointLabel>
         </IconBox>
       </InsideContainerTwo>
