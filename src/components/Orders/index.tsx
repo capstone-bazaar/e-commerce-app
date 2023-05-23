@@ -17,7 +17,13 @@ interface ProductInterface {
   comments: CommentInterface[];
 }
 
+interface BuyerInterface {
+  fullName: string;
+  phone: string;
+}
+
 export interface OrderInterface {
+  id: string;
   shippingAddress: string;
   price: number;
   status: SHIPMENT_ENUM;
@@ -26,6 +32,7 @@ export interface OrderInterface {
   createdAt: number;
   product: ProductInterface;
   trackingNumber: string;
+  buyer: BuyerInterface;
 }
 
 const PageTitleContainer = styled.div`

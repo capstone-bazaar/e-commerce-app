@@ -38,7 +38,7 @@ export default function UserProfile() {
 
   switch (activeTab) {
     case TABS.ACTIVE_ORDER_TAB:
-      activeComponent = <ActiveOrderTab />;
+      activeComponent = <ActiveOrderTab data={data?.me?.unshippedOrders} />;
       break;
     case TABS.TOTAL_PRODUCT_TAB:
       activeComponent = <TotalProductTab data={data?.me?.products} />;
@@ -87,7 +87,7 @@ export default function UserProfile() {
               >
                 <TabContainer>Active Order</TabContainer>
                 <ActiveOrderStockLabel>
-                  {data?.me?.activeOrders?.length || 0}
+                  {data?.me?.unshippedOrders?.length || 0}
                 </ActiveOrderStockLabel>
               </TabBox>
             </RightBox>
