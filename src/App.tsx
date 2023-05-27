@@ -37,7 +37,7 @@ function App() {
             <Route element={<ProductsPage />} path="/products"></Route>
           </Route>
           <Route element={<PrivateRoute />}>
-            <Route element={<UserProfile />} path="/profile"></Route>
+            <Route element={<UserProfile />} path="/profile/:id?"></Route>
           </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<DigitalMoneyPage />} path="/mb-money"></Route>

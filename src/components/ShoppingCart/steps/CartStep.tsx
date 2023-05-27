@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { TrashIcon } from '../../../assests/icons';
+import { useNavigate } from 'react-router-dom';
 
 const ProductContainer = styled.div`
   padding: 30px;
@@ -65,6 +66,8 @@ export default function CartStep({
   // eslint-disable-next-line
   data: any;
 }) {
+  const navigate = useNavigate();
+
   // eslint-disable-next-line
   return data.me.shoppingCart.map((item: any, index: number) => (
     <Wrapper key={index}>
@@ -72,7 +75,7 @@ export default function CartStep({
         <TrashIcon />
       </div>
       <ProductContainer>
-        <SellerContainer>
+        <SellerContainer onClick={() => navigate(`/profile/${item.seller.id}`)}>
           Seller: <b>{item.seller.fullName}</b>
         </SellerContainer>
         <ProductDescriptionsContainer>

@@ -35,6 +35,39 @@ export const REMOVE_FROM_CART = gql`
   }
 `;
 
+export const GET_USER = gql`
+  query GetUser($id: String) {
+    getUser(id: $id) {
+      id
+      fullName
+      avatarURL
+      products {
+        id
+        price
+        currency
+        stockCount
+        title
+        description
+        seller {
+          id
+          avatarURL
+          fullName
+        }
+        imageURLs
+        comments {
+          user {
+            fullName
+          }
+          comment
+          rate
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const GET_ME = gql`
   query Me {
     me {
@@ -99,6 +132,7 @@ export const GET_ME = gql`
         price
         title
         seller {
+          id
           fullName
         }
         imageURLs
@@ -111,6 +145,7 @@ export const GET_ME = gql`
         title
         description
         seller {
+          id
           avatarURL
           fullName
         }

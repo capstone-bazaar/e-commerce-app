@@ -1,6 +1,6 @@
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import {
   ActiveOrderStockLabel,
   DescriptionLabel,
@@ -17,9 +17,10 @@ import {
 } from '../components/UserProfile/Components';
 import ActiveOrderTab from '../components/UserProfile/tabs/activeOrderTab';
 import TotalProductTab from '../components/UserProfile/tabs/totalProductsTab';
-import { GET_ME } from '../queries/user';
+import { GET_ME, GET_USER } from '../queries/user';
 import { ContainerBox } from '../components/container';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 enum TABS {
   TOTAL_PRODUCT_TAB,
@@ -31,33 +32,62 @@ const Container = styled.div`
   height: 100%;
 `;
 export default function UserProfile() {
-  const { loading, error, data } = useQuery(GET_ME);
+  const { id } = useParams();
+
+  const [getMe, { loading: meLoading, error: meError, data: meData }] =
+    useLazyQuery(GET_ME);
+  const [
+    getUser,
+    { loading: otherUserLoading, error: otherUserError, data: otherUserData },
+  ] = useLazyQuery(GET_USER);
+
+  const [data, setData] = useState<any>();
+  const [isOtherUser, setIsOtherUser] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.TOTAL_PRODUCT_TAB);
+
+  useEffect(() => {
+    if (id) {
+      getUser({ variables: { id } });
+      setIsOtherUser(true);
+    }
+    getMe();
+  }, []);
+
+  useEffect(() => {
+    if (otherUserData) {
+      return setData(otherUserData?.getUser);
+    }
+    setData(meData?.me);
+  }, [meData, otherUserData]);
+
+  if (otherUserLoading || meLoading || !data) {
+    return <div>Error</div>;
+  }
+  if (otherUserError || meError) {
+    return <div>Error</div>;
+  }
 
   let activeComponent;
 
   switch (activeTab) {
     case TABS.ACTIVE_ORDER_TAB:
-      activeComponent = <ActiveOrderTab data={data?.me?.unshippedOrders} />;
+      activeComponent = <ActiveOrderTab data={data?.unshippedOrders} />;
       break;
     case TABS.TOTAL_PRODUCT_TAB:
-      activeComponent = <TotalProductTab data={data?.me?.products} />;
+      activeComponent = (
+        <TotalProductTab data={data?.products} isOtherUser={isOtherUser} />
+      );
       break;
 
     default:
-      activeComponent = <TotalProductTab data={data?.me?.products} />;
+      activeComponent = (
+        <TotalProductTab data={data?.products} isOtherUser={isOtherUser} />
+      );
       break;
   }
   const handleButtonClick = (tab: TABS) => {
     setActiveTab(tab);
   };
-
-  if (loading) {
-    return <div>Error</div>;
-  }
-  if (error) {
-    return <div>Error</div>;
-  }
 
   return (
     <PageWithNavbar>
@@ -65,10 +95,10 @@ export default function UserProfile() {
         <Container>
           <ProfileContainer>
             <ProfileImgBox>
-              <ImgProfile src={data.me.avatarURL} />
+              <ImgProfile src={data.avatarURL} />
               <LabelBox>
-                <ProfileLabel>{data.me.fullName}</ProfileLabel>
-                <DescriptionLabel>{data.me.bio}</DescriptionLabel>
+                <ProfileLabel>{data.fullName}</ProfileLabel>
+                <DescriptionLabel>{data.bio}</DescriptionLabel>
               </LabelBox>
             </ProfileImgBox>
             <RightBox>
@@ -78,18 +108,20 @@ export default function UserProfile() {
               >
                 <TabContainer>Total Product</TabContainer>
                 <ProductLabelStockCounter>
-                  {data?.me?.products?.length || 0}
+                  {data?.products?.length || 0}
                 </ProductLabelStockCounter>
               </TabBox>
-              <TabBox
-                isActive={activeTab === TABS.ACTIVE_ORDER_TAB}
-                onClick={() => handleButtonClick(TABS.ACTIVE_ORDER_TAB)}
-              >
-                <TabContainer>Active Order</TabContainer>
-                <ActiveOrderStockLabel>
-                  {data?.me?.unshippedOrders?.length || 0}
-                </ActiveOrderStockLabel>
-              </TabBox>
+              {!isOtherUser && (
+                <TabBox
+                  isActive={activeTab === TABS.ACTIVE_ORDER_TAB}
+                  onClick={() => handleButtonClick(TABS.ACTIVE_ORDER_TAB)}
+                >
+                  <TabContainer>Active Order</TabContainer>
+                  <ActiveOrderStockLabel>
+                    {data?.unshippedOrders?.length || 0}
+                  </ActiveOrderStockLabel>
+                </TabBox>
+              )}
             </RightBox>
           </ProfileContainer>
           <HorizontalLine />

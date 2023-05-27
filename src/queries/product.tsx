@@ -10,6 +10,7 @@ export const GET_PRODUCT = gql`
       currency
       stockCount
       seller {
+        id
         fullName
         avatarURL
       }
@@ -39,6 +40,7 @@ export const GET_ALL_PRODUCTS = gql`
       currency
       stockCount
       seller {
+        id
         avatarURL
         fullName
       }
@@ -75,6 +77,7 @@ export const GET_USER_ADDED_PRODUCTS = gql`
         title
         description
         seller {
+          id
           avatarURL
           fullName
         }
