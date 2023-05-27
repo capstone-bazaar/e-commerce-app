@@ -1,15 +1,21 @@
 import { useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import { Container, ContainerBox } from '../components/container';
+import { ContainerBox } from '../components/container';
 import { Label } from '../components/Labels/Label';
 import { Button } from '../components/Buttons/Button';
-import { REGISTER } from '../queries/user';
+import { UPDATE_USER } from '../queries/user';
 import { Input } from '../components/Input/Input';
 import { Form } from '../components/Forms/Form';
 import { object, string, ValidationError, array } from 'yup';
 import styled from 'styled-components';
 import { AddButton } from '../components/Buttons/AddButton';
+import { Upload } from 'antd';
+import { getBase64 } from '../utils/helpers';
+
+import type { RcFile, UploadFile } from 'antd/es/upload/interface';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+
 export const ErrorMessage = styled.text`
   margin-top: 15px;
   color: red;
@@ -20,56 +26,67 @@ const FormWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-constent: center;
+  justify-content: center;
   flex-direction: column;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  box-sizing: border-box;
 `;
+
 export default function EditPage() {
   const editSchema = object().shape({
     fullName: string().required('Fullname is required'),
     phone: string().required('Phone number is required'),
-    address: array(string().required('Address is required')),
+    addresses: array(string()),
     email: string().email().required('Email is required'),
   });
-  const [register, { error }] = useMutation(REGISTER);
+
+  const [updateUser] = useMutation(UPDATE_USER);
 
   const [editData, setEditData] = useState({
+    image: '',
     fullName: '',
     phone: '',
-    address: [''],
+    addresses: [''],
     email: '',
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [errors, setError] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [base64List, setBase64List] = useState<Array<string>>([]);
+  const [isLoading] = useState(false);
 
   const handleChangeEditData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
-    if (name === 'address') {
+    if (name === 'addresses') {
       const formValues = { ...editData };
-      formValues.address[0] = value;
+      formValues.addresses[0] = value;
       return setEditData({ ...formValues });
     }
     setEditData({ ...editData, [name]: value });
   };
 
   const handleOnClickButton = async () => {
+    //console.log(base64List[0]);
     editSchema
       .validate(editData)
       .then(async () => {
         if (!errors || errors === '') {
-          const { fullName, phone, address, email } = editData;
-          const { data } = await register({
+          const { fullName, phone, addresses, email } = editData;
+          await updateUser({
             variables: {
-              fullName,
-              phone,
-              address,
-              email,
+              fields: {
+                image: base64List[0],
+                fullName,
+                phone,
+                addresses,
+                email,
+              },
             },
           });
-          if (!error && data && data.register) {
-            return { token: data.register };
-          }
         }
       })
       .catch((errors) => {
@@ -83,7 +100,7 @@ export default function EditPage() {
     if (
       editData.fullName &&
       editData.phone &&
-      editData.address &&
+      editData.addresses &&
       editData.email
     ) {
       return setIsButtonDisabled(false);
@@ -92,10 +109,52 @@ export default function EditPage() {
     }
   }, [editData]);
 
+  const handleUpload = async (file: RcFile) => {
+    const base64 = await getBase64(file);
+    setBase64List((prevList) => [...prevList, base64]);
+    return false;
+  };
+
+  const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    setFileList(fileList);
+  };
+
+  const handleRemove = (file: UploadFile) => {
+    const index = fileList.indexOf(file);
+    if (index > -1) {
+      setFileList((prevList) => {
+        const newList = [...prevList];
+        newList.splice(index, 1);
+        return newList;
+      });
+      setBase64List((prevList) => {
+        const newList = [...prevList];
+        newList.splice(index, 1);
+        return newList;
+      });
+    }
+  };
+
+  const uploadButton = (
+    <div>
+      {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
   return (
     <PageWithNavbar>
       <ContainerBox>
         <FormWrapper>
+          <Upload
+            listType="picture-circle"
+            fileList={fileList}
+            beforeUpload={handleUpload}
+            onChange={handleFileChange}
+            onRemove={handleRemove}
+          >
+            {fileList.length >= 1 ? null : uploadButton}
+          </Upload>
           <Label>Full Name</Label>
           <Input
             type={'text'}

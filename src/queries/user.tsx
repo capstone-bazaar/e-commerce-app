@@ -75,6 +75,14 @@ export const GET_USER = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation UpdateUser($fields: UserInput) {
+    updateUser(fields: $fields) {
+      id
+    }
+  }
+`;
+
 export const GET_ME = gql`
   query Me {
     me {

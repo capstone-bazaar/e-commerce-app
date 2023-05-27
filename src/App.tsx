@@ -25,7 +25,9 @@ function App() {
           <Route element={<SignUp />} path="/signup"></Route>
           <Route element={<VerifyEmailPage />} path="/verification" />
           <Route element={<NotFoundPage />} path="*" />
-          <Route element={<EditPage />} path="/edit"></Route>
+          <Route element={<PrivateRoute />}>
+            <Route element={<EditPage />} path="/edit"></Route>
+          </Route>
           <Route element={<PrivateRoute />}>
             <Route element={<ProductPage />} path="/products/:id"></Route>
           </Route>
