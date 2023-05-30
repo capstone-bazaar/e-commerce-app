@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddToCartIcon } from '../assests/icons';
 import { Button } from '../components/Buttons/Button';
@@ -84,7 +84,6 @@ interface CommentInterface {
 
 export default function ProductPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const { data, error, loading } = useQuery(GET_PRODUCT, {
     variables: { productID: id },

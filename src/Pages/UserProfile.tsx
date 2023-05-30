@@ -1,5 +1,5 @@
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import {
   ActiveOrderStockLabel,
@@ -41,6 +41,7 @@ export default function UserProfile() {
     { loading: otherUserLoading, error: otherUserError, data: otherUserData },
   ] = useLazyQuery(GET_USER);
 
+  //eslint-disable-next-line
   const [data, setData] = useState<any>();
   const [isOtherUser, setIsOtherUser] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.TOTAL_PRODUCT_TAB);
@@ -51,6 +52,7 @@ export default function UserProfile() {
       setIsOtherUser(true);
     }
     getMe();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {

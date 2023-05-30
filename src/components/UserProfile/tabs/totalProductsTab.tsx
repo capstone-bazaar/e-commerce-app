@@ -11,6 +11,7 @@ export default function TotalProductTab({
   data,
   isOtherUser,
 }: {
+  //eslint-disable-next-line
   data: any;
   isOtherUser: boolean;
 }) {
