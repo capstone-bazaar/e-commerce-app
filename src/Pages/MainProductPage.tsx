@@ -1,17 +1,41 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import Card from '../components/Cards/Cards';
 import { CardBox } from '../components/Cards/CardStyles';
-// import { CategoriesContainer } from '../components/Cards/CategoriesStyle';
-// import ProductCategories from '../components/Cards/Categories';
-// import CategoriesData from '../components/Cards/CategoriesData';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { GET_ALL_PRODUCTS } from '../queries/product';
 import { useNavigate } from 'react-router-dom';
 import { ContainerBox } from './Product';
 import SearchBar from '../components/SearchBar/SearchBar';
+import Modal from '../components/Modal/Modal';
+import { GET_ALL_CATEGORIES } from '../queries/category';
+import ModalCategoryItem from '../components/Category/ModalCategoryItem';
+import styled from 'styled-components';
+import { SecondaryButton } from '../components/Buttons/SecondaryButton';
+
+const ModalContentWrapper = styled.div`
+  display: grid;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-template-rows: repeat(2, minmax(200px, 1fr));
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    grid-template-rows: repeat(3, minmax(150px, 1fr));
+  }
+`;
 
 export default function ProductsPage() {
+  const [isCategoryModalOpen, setIsCategoryModalOpen] =
+    useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const {
+    data: categoryData,
+    loading: categoryLoading,
+    error: categoryError,
+  } = useQuery(GET_ALL_CATEGORIES, { fetchPolicy: 'cache-first' });
+
   const [getProducts, { error, loading, data, called }] = useLazyQuery(
     GET_ALL_PRODUCTS,
     {
@@ -25,11 +49,19 @@ export default function ProductsPage() {
     //eslint-disable-next-line
   }, []);
 
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setIsCategoryModalOpen(false);
+    return getProducts({
+      variables: { filters: { byCategory: categoryId } },
+    });
+  };
+
   const navigate = useNavigate();
-  if (called && loading) {
+  if ((called && loading) || categoryLoading) {
     return <div>loading</div>;
   }
-  if (error) {
+  if (error || categoryError) {
     return <div>Error</div>;
   }
 
@@ -41,28 +73,46 @@ export default function ProductsPage() {
 
   return (
     <PageWithNavbar>
+      {isCategoryModalOpen && (
+        <Modal onClose={() => setIsCategoryModalOpen(false)}>
+          <ModalContentWrapper>
+            {categoryData.getAllCategories.map(
+              (category: { id: string; title: string; imageURL: string }) => {
+                return (
+                  <ModalCategoryItem
+                    title={category.title}
+                    key={category.id}
+                    id={category.id}
+                    imageURL={category.imageURL}
+                    selectedCategory={selectedCategory}
+                    onSelected={(id) => handleCategoryChange(id)}
+                  />
+                );
+              }
+            )}
+          </ModalContentWrapper>
+        </Modal>
+      )}
       <ContainerBox>
         <div
           style={{
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
+            alignItems: 'center',
             marginTop: '50px',
-            marginBottom: '100px',
+            marginBottom: '70px',
           }}
         >
+          <h2 style={{ marginBottom: '30px' }}>What are you looking for?</h2>
           <SearchBar onSearch={(searchText) => handleSearch(searchText)} />
         </div>
-        {/* <CategoriesContainer>
-        {CategoriesData.map((data, index) => {
-          return (
-            <ProductCategories
-              categoriesName={data.categoriesName}
-              categoriesImage={data.categoriesImage}
-            />
-          );
-        })}
-      </CategoriesContainer> */}
-
+        <SecondaryButton
+          style={{ width: '200px', margin: '20px 20px' }}
+          onClick={() => setIsCategoryModalOpen(true)}
+        >
+          Categories
+        </SecondaryButton>{' '}
         {data && data.findAllProducts.length > 0 ? (
           <CardBox>
             {data.findAllProducts.map(

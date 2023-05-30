@@ -9,9 +9,11 @@ import { Upload } from 'antd';
 import type { RcFile } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { getBase64 } from '../../utils/helpers';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../queries/product';
 import { toast } from 'react-toastify';
+import SelectField from '../Input/SelectField';
+import { GET_ALL_CATEGORIES } from '../../queries/category';
 
 const FormContainer = styled.div`
   display: flex;
@@ -27,11 +29,16 @@ export default function AddProductForm() {
   const [base64List, setBase64List] = useState<Array<string>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { data, loading, error } = useQuery(GET_ALL_CATEGORIES, {
+    fetchPolicy: 'cache-first',
+  });
+
   const [productForm, setProductForm] = useState({
     title: '',
     description: '',
     price: 0,
     stockCount: 0,
+    category: '',
   });
 
   const [addProduct] = useMutation(ADD_PRODUCT);
@@ -40,6 +47,16 @@ export default function AddProductForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    setProductForm({ ...productForm, [name]: value });
+  };
+
+  const handleSelectFieldChange = ({
+    value,
+    name,
+  }: {
+    value: string;
+    name: string;
+  }) => {
     setProductForm({ ...productForm, [name]: value });
   };
 
@@ -95,6 +112,9 @@ export default function AddProductForm() {
     }
   };
 
+  if (loading) <div>Loading...</div>;
+  if (error) <div>Something went wrong</div>;
+
   return (
     <>
       <Title>Add Product</Title>
@@ -117,6 +137,21 @@ export default function AddProductForm() {
           min={0}
           name="stockCount"
           onChange={handleFormChange}
+        />
+
+        <Label>Category</Label>
+        <SelectField
+          defaultValue={productForm.category}
+          name="category"
+          options={data?.getAllCategories?.map(
+            (category: { id: string; title: string }) => {
+              return {
+                label: category.title,
+                value: category.id,
+              };
+            }
+          )}
+          onChange={(e) => handleSelectFieldChange({ ...e, name: 'category' })}
         />
 
         <Label>Product Images</Label>
