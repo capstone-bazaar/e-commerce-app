@@ -4,9 +4,18 @@ import { AddProductCard, CardBox } from '../../Cards/CardStyles';
 import Card from '../../Cards/Cards';
 import Drawer from '../../Drawer/Drawer';
 import AddProductForm from '../AddProductContent';
+import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line
-export default function TotalProductTab({ data }: { data: any }) {
+export default function TotalProductTab({
+  data,
+  isOtherUser,
+}: {
+  //eslint-disable-next-line
+  data: any;
+  isOtherUser: boolean;
+}) {
+  const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   return (
@@ -14,12 +23,19 @@ export default function TotalProductTab({ data }: { data: any }) {
       <Drawer isOpen={isDrawerOpen} setDrawerIsOpen={setIsDrawerOpen}>
         <AddProductForm />
       </Drawer>
-      <AddProductCard id='add-product-card' onClick={() => setIsDrawerOpen(true)}>
-        <AddIcon />
-      </AddProductCard>
+
+      {!isOtherUser && (
+        <AddProductCard
+          id="add-product-card"
+          onClick={() => setIsDrawerOpen(true)}
+        >
+          <AddIcon />
+        </AddProductCard>
+      )}
       {data.map(
         (
           product: {
+            id: string;
             price: string;
             imageURLs: string[];
             title: string;
@@ -32,6 +48,11 @@ export default function TotalProductTab({ data }: { data: any }) {
         ) => {
           return (
             <Card
+              onClick={() => {
+                if (isOtherUser) {
+                  navigate(`/products/${product.id}`);
+                }
+              }}
               key={index}
               price={product.price}
               image={product.imageURLs[0]}

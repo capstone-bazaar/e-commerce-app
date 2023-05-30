@@ -164,7 +164,9 @@ export default function ProductPage() {
                   alt="seller_img"
                   src={data.findProductById.seller.avatarURL}
                 />
-                {data.findProductById.seller.fullName}
+                <TextButton href={`/profile/${data.findProductById.seller.id}`}>
+                  {data.findProductById.seller.fullName}
+                </TextButton>
               </div>
             </SellerContainer>
             {userProductData?.me?.products
