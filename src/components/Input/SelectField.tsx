@@ -24,7 +24,7 @@ export default function SelectField({
   return (
     <Select
       styles={defaultStyles}
-      onChange={onChange}
+      onChange={(e) => onChange(e)}
       options={options}
       name={name}
       defaultValue={defaultValue}
