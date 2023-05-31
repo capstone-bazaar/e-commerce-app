@@ -61,7 +61,11 @@ export default function LoginPage() {
         });
 
         if (data.login) {
-          login({ token: data.login, rememberMe: loginData.rememberMe });
+          login({
+            token: data.login.token,
+            user: data.login.user,
+            rememberMe: loginData.rememberMe,
+          });
         }
       })
       .catch((errors) => {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { TrashIcon } from '../../../assests/icons';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 
 const ProductContainer = styled.div`
   padding: 30px;
@@ -68,6 +69,8 @@ export default function CartStep({
 }) {
   const navigate = useNavigate();
 
+  const { userID } = useAuth();
+
   // eslint-disable-next-line
   return data.me.shoppingCart.map((item: any, index: number) => (
     <Wrapper key={index}>
@@ -75,7 +78,15 @@ export default function CartStep({
         <TrashIcon />
       </div>
       <ProductContainer>
-        <SellerContainer onClick={() => navigate(`/profile/${item.seller.id}`)}>
+        <SellerContainer
+          onClick={() =>
+            navigate(
+              userID !== item.seller.id
+                ? `/profile/${item.seller.id}`
+                : `/profile`
+            )
+          }
+        >
           Seller: <b>{item.seller.fullName}</b>
         </SellerContainer>
         <ProductDescriptionsContainer>

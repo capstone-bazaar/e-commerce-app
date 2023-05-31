@@ -63,7 +63,10 @@ export default function SignUpSchema() {
           });
 
           if (!error && data && data.register) {
-            return signup({ token: data.register });
+            return signup({
+              token: data.register.token,
+              user: data.register.user,
+            });
           }
         }
       })

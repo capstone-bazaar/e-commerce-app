@@ -32,12 +32,6 @@ export default function TotalProductTab({
           <AddIcon />
         </AddProductCard>
       )}
-      <AddProductCard
-        id="add-product-card"
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <AddIcon />
-      </AddProductCard>
       {data.map(
         (
           product: {
@@ -55,9 +49,7 @@ export default function TotalProductTab({
           return (
             <Card
               onClick={() => {
-                if (isOtherUser) {
-                  navigate(`/products/${product.id}`);
-                }
+                navigate(`/products/${product.id}`);
               }}
               key={index}
               price={product.price}
