@@ -32,6 +32,12 @@ export default function TotalProductTab({
           <AddIcon />
         </AddProductCard>
       )}
+      <AddProductCard
+        id="add-product-card"
+        onClick={() => setIsDrawerOpen(true)}
+      >
+        <AddIcon />
+      </AddProductCard>
       {data.map(
         (
           product: {
@@ -41,7 +47,7 @@ export default function TotalProductTab({
             title: string;
             description: string;
             seller: { fullName: string; avatarURL: string };
-            points: string;
+            avgRate: number;
             currency: string;
           },
           index: number
@@ -60,7 +66,7 @@ export default function TotalProductTab({
               description={product.description}
               sellerImage={product.seller.avatarURL}
               sellerName={product.seller.fullName}
-              points={product.points}
+              avgRate={product.avgRate}
               currency={product.currency}
             />
           );

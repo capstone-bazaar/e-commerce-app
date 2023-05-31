@@ -39,6 +39,7 @@ export const GET_ALL_PRODUCTS = gql`
       title
       currency
       stockCount
+      avgRate
       seller {
         id
         avatarURL

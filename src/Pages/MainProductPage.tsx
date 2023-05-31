@@ -74,7 +74,7 @@ export default function ProductsPage() {
                   title: string;
                   description: string;
                   seller: { fullName: string; avatarURL: string };
-                  points: string;
+                  avgRate: number;
                   currency: string;
                 },
                 index: number
@@ -88,7 +88,7 @@ export default function ProductsPage() {
                     description={product.description}
                     sellerImage={product.seller.avatarURL}
                     sellerName={product.seller.fullName}
-                    points={product.points}
+                    avgRate={product.avgRate}
                     currency={product.currency}
                   />
                 );
