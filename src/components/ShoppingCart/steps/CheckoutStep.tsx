@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { PAYMENT_METHODS } from '../../../utils/constants';
 import CreditCardField from '../../CreditCardField/CreditCardField';
 import { AddIcon } from '../../../assests/icons';
+import { useNavigate } from 'react-router-dom';
 
 const SectionTitle = styled.div`
   font-size: 30px;
@@ -93,6 +94,7 @@ export default function CheckoutStep({
   // eslint-disable-next-line
   setOrderInfo: any;
 }) {
+  const navigate = useNavigate();
   const handleRadioButtonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = e.target.name;
     setOrderInfo({
@@ -130,7 +132,10 @@ export default function CheckoutStep({
               )
             )
           ) : (
-            <AddAddressContainer id="add-address-card">
+            <AddAddressContainer
+              onClick={() => navigate('/edit')}
+              id="add-address-card"
+            >
               <AddIcon />
             </AddAddressContainer>
           )}
