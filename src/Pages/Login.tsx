@@ -16,14 +16,8 @@ import TextButton from '../components/Buttons/TextButton';
 import { useAuth } from '../context/AuthContext';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFacebookF,
-  faTwitter,
-  faGoogle,
-  faInstagram,
-  faLinkedin,
-} from '@fortawesome/free-brands-svg-icons';
-export const ErrorMessage = styled.text`
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+export const ErrorMessage = styled.p`
   margin-top: 15px;
   color: red;
   font-size: small;
@@ -115,19 +109,7 @@ export default function LoginPage() {
           </Button>
           <SocialMediaDiv>
             <SocialMediaButton>
-              <FontAwesomeIcon icon={faFacebookF} />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <FontAwesomeIcon icon={faTwitter} />
-            </SocialMediaButton>
-            <SocialMediaButton>
               <FontAwesomeIcon icon={faGoogle} />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <FontAwesomeIcon icon={faInstagram} />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <FontAwesomeIcon icon={faLinkedin} />
             </SocialMediaButton>
           </SocialMediaDiv>
 

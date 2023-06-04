@@ -21,6 +21,7 @@ import { GET_ME, GET_USER } from '../queries/user';
 import { ContainerBox } from '../components/container';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { UserProfileIcon } from '../assests/icons';
 
 enum TABS {
   TOTAL_PRODUCT_TAB,
@@ -97,7 +98,11 @@ export default function UserProfile() {
         <Container>
           <ProfileContainer>
             <ProfileImgBox>
-              <ImgProfile src={data.avatarURL} />
+              {data.avatarURL ? (
+                <ImgProfile src={data.avatarURL} />
+              ) : (
+                <UserProfileIcon width="150px" height="150px" />
+              )}
               <LabelBox>
                 <ProfileLabel>{data.fullName}</ProfileLabel>
                 <DescriptionLabel>{data.bio}</DescriptionLabel>

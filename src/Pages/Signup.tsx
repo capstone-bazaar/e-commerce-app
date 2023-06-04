@@ -44,6 +44,7 @@ export default function SignUpSchema() {
   const [errors, setError] = useState('');
 
   const handleChangeSignUpData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError('');
     const { value, name } = e.target;
     setSignUpData({ ...signupData, [name]: value });
   };

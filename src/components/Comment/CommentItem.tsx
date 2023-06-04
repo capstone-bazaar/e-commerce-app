@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import RateStars from '../RateStars/RateStars';
+import { UserProfileIcon } from '../../assests/icons';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 const CommentContainer = styled.div`
   margin-top: 40px;
@@ -53,10 +57,17 @@ export default function CommentItem({
     <CommentContainer>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ProfileContainer>
-          <ProfileImage src={profileImage} alt="profile_img" />
+          {profileImage ? (
+            <ProfileImage src={profileImage} alt="profile_img" />
+          ) : (
+            <UserProfileIcon />
+          )}
           <NameAndCreatedAtContainer>
             <Name>{buyerName}</Name>
-            <CreatedAtDate>1 days ago</CreatedAtDate>
+            <CreatedAtDate>
+              {' '}
+              {dayjs.utc(Number(createdAt)).format('DD/MM/YYYY')}
+            </CreatedAtDate>
           </NameAndCreatedAtContainer>
         </ProfileContainer>
         <RateStars rate={rate} />

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { PAYMENT_METHODS } from '../../../utils/constants';
 import CreditCardField from '../../CreditCardField/CreditCardField';
+import { AddIcon } from '../../../assests/icons';
 
 const SectionTitle = styled.div`
   font-size: 30px;
@@ -27,6 +28,26 @@ const AddressContainer = styled.label`
 
   input[type='radio']:checked + & {
     border: 2px solid #ea004b;
+  }
+`;
+
+const AddAddressContainer = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 200px;
+  width: 300px;
+  border: 3px dashed black;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-y: scroll;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  &:hover {
+    border: 3px dashed #ea004b;
   }
 `;
 
@@ -85,27 +106,33 @@ export default function CheckoutStep({
       <SectionTitle>Select your address</SectionTitle>
       <FormField style={{ marginBottom: '20px' }}>
         <AddressBoxContainer>
-          {data.me.addresses.map(
-            (
-              address: { id: string; title: string; address: string },
-              index: number
-            ) => (
-              <>
-                <AddressRadioInput
-                  name="shippingAddress"
-                  type="radio"
-                  id={index.toString()}
-                  value={address.address}
-                  onChange={(e) => handleRadioButtonChange(e)}
-                />
-                <AddressContainer htmlFor={index.toString()}>
-                  {address.title && (
-                    <AddressTitle>{address.title}</AddressTitle>
-                  )}
-                  {address.address}
-                </AddressContainer>
-              </>
+          {data.me?.addresses && data.me.addresses.length > 0 ? (
+            data.me.addresses.map(
+              (
+                address: { id: string; title: string; address: string },
+                index: number
+              ) => (
+                <>
+                  <AddressRadioInput
+                    name="shippingAddress"
+                    type="radio"
+                    id={index.toString()}
+                    value={address.address}
+                    onChange={(e) => handleRadioButtonChange(e)}
+                  />
+                  <AddressContainer htmlFor={index.toString()}>
+                    {address.title && (
+                      <AddressTitle>{address.title}</AddressTitle>
+                    )}
+                    {address.address}
+                  </AddressContainer>
+                </>
+              )
             )
+          ) : (
+            <AddAddressContainer id="add-address-card">
+              <AddIcon />
+            </AddAddressContainer>
           )}
         </AddressBoxContainer>
         <SectionTitle>Payment Method</SectionTitle>

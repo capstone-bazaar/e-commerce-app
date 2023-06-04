@@ -111,6 +111,7 @@ export const ProductPrice = styled.div`
 export const SellerName = styled.div`
   font-size: 10px;
   font-weight: 800;
+  margin-top: 2px;
 `;
 export const IconBox = styled.div`
   display: flex;

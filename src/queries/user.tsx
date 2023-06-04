@@ -53,6 +53,7 @@ export const GET_USER = gql`
         currency
         stockCount
         title
+        avgRate
         description
         seller {
           id
@@ -150,6 +151,7 @@ export const GET_ME = gql`
         stockCount
         title
         description
+        avgRate
         seller {
           id
           avatarURL
