@@ -45,6 +45,7 @@ export const SHIPMENT_STATES = {
   DELIVERED: 'DELIVERED',
   IN_TRANSIT: 'IN_TRANSIT',
   CANCELED: 'CANCELED',
+  NOT_DELIVERED: 'NOT_DELIVERED',
 };
 
 export enum SHIPMENT_ENUM {
@@ -52,6 +53,7 @@ export enum SHIPMENT_ENUM {
   DELIVERED = 'DELIVERED',
   IN_TRANSIT = 'IN_TRANSIT',
   CANCELED = 'CANCELED',
+  NOT_DELIVERED = 'NOT_DELIVERED',
 }
 
 export const SHIPMENT_STATUSES: {
@@ -84,6 +86,12 @@ export const SHIPMENT_STATUSES: {
     secondaryColor: '#fee1de',
     primaryColor: '#F44336',
     description: 'Canceled',
+    icon: <CanceledIcon />,
+  },
+  NOT_DELIVERED: {
+    secondaryColor: '#fee1de',
+    primaryColor: '#F44336',
+    description: 'Not Delivered',
     icon: <CanceledIcon />,
   },
 };

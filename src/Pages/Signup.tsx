@@ -9,10 +9,12 @@ import { REGISTER } from '../queries/user';
 import { useAuth } from '../context/AuthContext';
 import { object, string, ref, ValidationError } from 'yup';
 import { ErrorMessage } from './Login';
-
+const nameRegex = /^[A-Za-z]+$/;
 export default function SignUpSchema() {
   const signupSchema = object().shape({
-    fullName: string().required('Fullname is required'),
+    fullName: string()
+      .matches(nameRegex, 'Only English letters')
+      .required('Fullname is required'),
 
     email: string().email().required('Email is required'),
 
