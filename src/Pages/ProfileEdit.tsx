@@ -1,20 +1,23 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { ContainerBox } from '../components/container';
 import { Label } from '../components/Labels/Label';
 import { Button } from '../components/Buttons/Button';
-import { UPDATE_USER } from '../queries/user';
+import { GET_ME, UPDATE_USER } from '../queries/user';
 import { Input } from '../components/Input/Input';
-import { Form } from '../components/Forms/Form';
-import { object, string, ValidationError, array } from 'yup';
+
+import { object, string, ValidationError } from 'yup';
 import styled from 'styled-components';
-import { AddButton } from '../components/Buttons/AddButton';
-import { Upload } from 'antd';
+
+import { Space, Upload } from 'antd';
 import { getBase64 } from '../utils/helpers';
 
 import type { RcFile, UploadFile } from 'antd/es/upload/interface';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import TextArea from '../components/Input/TextArea';
+
+import { toast, ToastContainer } from 'react-toastify';
 
 export const ErrorMessage = styled.text`
   margin-top: 15px;
@@ -22,34 +25,24 @@ export const ErrorMessage = styled.text`
   font-size: small;
 `;
 
-const FormWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  box-sizing: border-box;
-`;
-
 export default function EditPage() {
   const editSchema = object().shape({
     fullName: string().required('Fullname is required'),
     phone: string().required('Phone number is required'),
-    addresses: array(string()),
+    addresses: string().required('Address number is required'),
     email: string().email().required('Email is required'),
   });
 
+  const { data, loading, error } = useQuery(GET_ME);
   const [updateUser] = useMutation(UPDATE_USER);
 
   const [editData, setEditData] = useState({
     image: '',
     fullName: '',
     phone: '',
-    addresses: [''],
+    addresses: '',
     email: '',
+    addressTitle: '',
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -58,38 +51,61 @@ export default function EditPage() {
   const [base64List, setBase64List] = useState<Array<string>>([]);
   const [isLoading] = useState(false);
 
-  const handleChangeEditData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //eslint-disable-next-line
+  useEffect(() => {
+    if (data) {
+      setEditData({
+        image: '',
+        fullName: data?.me?.fullName || '',
+        phone: data?.me?.phone || '',
+        addresses: data?.me?.addresses[0]?.address || '',
+        email: data?.me?.email || '',
+        addressTitle: data?.me?.addresses[0]?.title || '',
+      });
+
+      if (data?.me?.avatarURL) {
+        setFileList([
+          {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: data?.me?.avatarURL,
+          },
+        ]);
+      }
+    }
+  }, [data]);
+
+  const handleChangeEditData = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { value, name } = e.target;
 
-    if (name === 'addresses') {
-      const formValues = { ...editData };
-      formValues.addresses[0] = value;
-      return setEditData({ ...formValues });
-    }
     setEditData({ ...editData, [name]: value });
   };
 
   const handleOnClickButton = async () => {
-    //console.log(base64List[0]);
     editSchema
       .validate(editData)
       .then(async () => {
         if (!errors || errors === '') {
-          const { fullName, phone, addresses, email } = editData;
+          const { fullName, phone, addresses, addressTitle, email } = editData;
           await updateUser({
             variables: {
               fields: {
                 image: base64List[0],
                 fullName,
                 phone,
-                addresses,
+                addresses: [{ title: addressTitle, address: addresses }],
                 email,
               },
             },
           });
+          toast.success('Successfully updated');
         }
       })
       .catch((errors) => {
+        toast.error('Something went wrong!');
         if (errors instanceof ValidationError) {
           setError(errors.message);
         }
@@ -142,10 +158,14 @@ export default function EditPage() {
     </div>
   );
 
+  if (error) return <div>Error!</div>;
+  if (loading) return <div>Loading...</div>;
+
   return (
     <PageWithNavbar>
+      <ToastContainer />
       <ContainerBox>
-        <FormWrapper>
+        <Space style={{ width: '100%' }} direction="vertical" align="center">
           <Upload
             listType="picture-circle"
             fileList={fileList}
@@ -155,8 +175,11 @@ export default function EditPage() {
           >
             {fileList.length >= 1 ? null : uploadButton}
           </Upload>
+
           <Label>Full Name</Label>
           <Input
+            value={editData.fullName}
+            style={{ width: '400px' }}
             type={'text'}
             placeholder={'Please enter your name and surname'}
             id="name"
@@ -167,6 +190,8 @@ export default function EditPage() {
           />
           <Label>Phone</Label>
           <Input
+            value={editData.phone}
+            style={{ width: '400px' }}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeEditData(event);
             }}
@@ -174,19 +199,32 @@ export default function EditPage() {
             placeholder={'Please enter your phone number'}
             name={'phone'}
           />
-          <Label>Adress</Label>
-          <Form
-            type={'text'}
-            placeholder={'Please add your address'}
-            id="address"
-            name={'address'}
+          <Label>Address Title</Label>
+          <Input
+            value={editData.addressTitle}
+            style={{ width: '400px' }}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               handleChangeEditData(event);
             }}
-          ></Form>
-          <AddButton>Add Address</AddButton>
+            placeholder={'Please enter address title'}
+            name={'addressTitle'}
+          />
+          <Label>Adress</Label>
+          <TextArea
+            value={editData.addresses}
+            style={{ width: '400px' }}
+            placeholder={'Please add your address'}
+            id="address"
+            name={'addresses'}
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+              handleChangeEditData(event);
+            }}
+          />
+
           <Label>E-mail</Label>
           <Input
+            value={editData.email}
+            style={{ width: '400px' }}
             type={'email'}
             placeholder={'Please enter your e-mail'}
             name={'email'}
@@ -197,10 +235,14 @@ export default function EditPage() {
 
           <br></br>
           {errors && <ErrorMessage>{errors}</ErrorMessage>}
-          <Button onClick={handleOnClickButton} disabled={isButtonDisabled}>
+          <Button
+            style={{ width: '400px' }}
+            onClick={handleOnClickButton}
+            disabled={isButtonDisabled}
+          >
             Save
           </Button>
-        </FormWrapper>
+        </Space>
       </ContainerBox>
     </PageWithNavbar>
   );
