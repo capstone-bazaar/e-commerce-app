@@ -11,6 +11,10 @@ import PageWithNavbar from '../components/Templates/PageWithNavbar';
 import { GET_PRODUCT, GET_USER_ADDED_PRODUCTS } from '../queries/product';
 import { ADD_TO_CART, GET_ME } from '../queries/user';
 import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
+import Drawer from '../components/Drawer/Drawer';
+import ProductEditForm from '../components/Product/ProductEditForm';
+import { useAuth } from '../context/AuthContext';
 
 const Container = styled.div`
   display: flex;
@@ -85,6 +89,8 @@ interface CommentInterface {
 export default function ProductPage() {
   const { id } = useParams();
 
+  const { userID } = useAuth();
+
   const { data, error, loading } = useQuery(GET_PRODUCT, {
     variables: { productID: id },
   });
@@ -96,6 +102,8 @@ export default function ProductPage() {
   } = useQuery(GET_USER_ADDED_PRODUCTS);
 
   const [addProductToShoppingCart] = useMutation(ADD_TO_CART);
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   const addToCart = async () => {
     try {
@@ -134,6 +142,10 @@ export default function ProductPage() {
   return (
     <PageWithNavbar>
       <ToastContainer />
+
+      <Drawer isOpen={isDrawerOpen} setDrawerIsOpen={setIsDrawerOpen}>
+        <ProductEditForm product={data.findProductById} />
+      </Drawer>
       <ContainerBox>
         <Container>
           <CarouselContainer>
@@ -147,7 +159,7 @@ export default function ProductPage() {
                 <span>{data.findProductById.currency}</span>
               </Price>
               <div>
-                <RateStars />
+                <RateStars rate={data.findProductById.avgRate} />
                 <TextButton href="#comments-list">See all reviews</TextButton>
               </div>
             </PriceAndRateContainer>
@@ -164,7 +176,13 @@ export default function ProductPage() {
                   alt="seller_img"
                   src={data.findProductById.seller.avatarURL}
                 />
-                <TextButton href={`/profile/${data.findProductById.seller.id}`}>
+                <TextButton
+                  href={
+                    userID === data.findProductById.seller.id
+                      ? `/profile`
+                      : `/profile/${data.findProductById.seller.id}`
+                  }
+                >
                   {data.findProductById.seller.fullName}
                 </TextButton>
               </div>
@@ -175,7 +193,7 @@ export default function ProductPage() {
               .includes(id) ? (
               <Button
                 style={{ width: '100%', marginTop: '20px' }}
-                //TODO: Will add update product feature
+                onClick={() => setIsDrawerOpen(true)}
               >
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <span style={{ marginRight: '8px' }}>Update</span>{' '}

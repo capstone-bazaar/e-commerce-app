@@ -7,8 +7,13 @@ export const GET_PRODUCT = gql`
       price
       title
       description
+      avgRate
       currency
       stockCount
+      category {
+        id
+        title
+      }
       seller {
         id
         fullName
@@ -93,6 +98,14 @@ export const GET_USER_ADDED_PRODUCTS = gql`
         createdAt
         updatedAt
       }
+    }
+  }
+`;
+
+export const UPDATE_PRODUCT = gql`
+  mutation updateProductById($fields: UpdateProductInput) {
+    updateProductById(fields: $fields) {
+      id
     }
   }
 `;

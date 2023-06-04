@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 interface ContextInterface {
   isAuth: boolean;
-  signup: ({ token }: { token: string }) => void;
+  userID: string | null;
+  signup: ({ token, user }: { token: string; user: string }) => void;
   login: ({
     token,
+    user,
     rememberMe,
   }: {
     token: string;
+    user: string;
     rememberMe: boolean;
   }) => void;
   logout: () => void;
@@ -20,6 +23,7 @@ interface ContextInterface {
 /* eslint-disable */
 const AuthContext = createContext<ContextInterface>({
   isAuth: false,
+  userID: '',
   login: () => {},
   logout: () => {},
   signup: () => {},
@@ -31,16 +35,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     !!localStorage.getItem('token') || !!sessionStorage.getItem('token')
   );
 
+  const [userID, setUserID] = useState<string | ''>(
+    localStorage.getItem('user') || ''
+  );
+
   const navigate = useNavigate();
 
   const login = async ({
     token,
+    user,
     rememberMe,
   }: {
     token: string;
+    user: string;
     rememberMe: boolean;
   }) => {
     if (token) {
+      setUserID(user);
+      localStorage.setItem('user', user);
       if (rememberMe) {
         localStorage.setItem('token', token);
       } else {
@@ -51,8 +63,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signup = async ({ token }: { token: string }) => {
+  const signup = async ({ token, user }: { token: string; user: string }) => {
     if (token) {
+      setUserID(user);
+      localStorage.setItem('user', user);
       localStorage.setItem('token', token);
       setIsAuth(true);
       navigate('/profile', { replace: true });
@@ -67,13 +81,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (sessionStorage.getItem('token')) {
       sessionStorage.removeItem('token');
     }
-
+    localStorage.removeItem('user');
     setIsAuth(false);
     return navigate('/', { replace: true });
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, signup, setIsAuth }}>
+    <AuthContext.Provider
+      value={{ isAuth, login, logout, signup, setIsAuth, userID }}
+    >
       {children}
     </AuthContext.Provider>
   );
