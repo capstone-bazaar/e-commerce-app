@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import ParagraphSlicer from '../ParagraphSlicer/ParagraphSlicer';
+import { UserProfileIcon } from '../../assests/icons';
 export default function Card({
   price,
   image,
@@ -61,11 +62,15 @@ export default function Card({
       </InsideContainer>
       <InsideContainerTwo>
         <BoxOne>
-          <img
-            alt="s"
-            src={sellerImage}
-            style={{ width: '31px', borderRadius: '50%' }}
-          />
+          {sellerImage ? (
+            <img
+              alt="s"
+              src={sellerImage}
+              style={{ width: '31px', borderRadius: '50%' }}
+            />
+          ) : (
+            <UserProfileIcon />
+          )}
           <SellerName>{sellerName}</SellerName>
         </BoxOne>
         <VerticalLine />

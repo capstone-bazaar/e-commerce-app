@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { AddToCartIcon } from '../assests/icons';
+import { AddToCartIcon, UserProfileIcon } from '../assests/icons';
 import { Button } from '../components/Buttons/Button';
 import TextButton from '../components/Buttons/TextButton';
 import CommentItem from '../components/Comment/CommentItem';
@@ -166,16 +166,21 @@ export default function ProductPage() {
             <SellerContainer>
               <div style={{ marginBottom: '5px' }}>Seller</div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '50%',
-                    marginRight: '10px',
-                  }}
-                  alt="seller_img"
-                  src={data.findProductById.seller.avatarURL}
-                />
+                {data?.findProductById?.seller?.avatarURL ? (
+                  <img
+                    style={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '50%',
+                      marginRight: '10px',
+                    }}
+                    alt="seller_img"
+                    src={data.findProductById.seller.avatarURL}
+                  />
+                ) : (
+                  <UserProfileIcon />
+                )}
+
                 <TextButton
                   href={
                     userID === data.findProductById.seller.id

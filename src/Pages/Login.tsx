@@ -23,7 +23,7 @@ import {
   faInstagram,
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
-export const ErrorMessage = styled.text`
+export const ErrorMessage = styled.p`
   margin-top: 15px;
   color: red;
   font-size: small;

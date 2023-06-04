@@ -3,6 +3,7 @@ import {
   CreditIcon,
   Logo,
   LogoutIcon,
+  MenuProfileIcon,
   OrdersIcon,
   SettingsIcon,
   ShoppingCartIcon,
@@ -61,21 +62,26 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
   const items: MenuProps['items'] = [
     {
       key: '1',
+      label: <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>,
+      icon: <MenuProfileIcon />,
+    },
+    {
+      key: '2',
       label: <MenuItem onClick={() => navigate('/orders')}>My Orders</MenuItem>,
       icon: <OrdersIcon />,
     },
     {
-      key: '2',
-      label: <MenuItem onClick={() => navigate('/profile')}>Settings</MenuItem>,
+      key: '3',
+      label: <MenuItem onClick={() => navigate('/edit')}>Settings</MenuItem>,
       icon: <SettingsIcon />,
     },
     {
-      key: '3',
+      key: '4',
       label: <MenuItem onClick={() => navigate('/mb-money')}>Balance</MenuItem>,
       icon: <CreditIcon />,
     },
     {
-      key: '4',
+      key: '5',
       label: <MenuItem onClick={logout}>Logout</MenuItem>,
       icon: <LogoutIcon />,
     },
@@ -106,7 +112,7 @@ const Navbar = ({ button }: { button: React.ReactNode }) => {
               </ShoppingCartContainer>
               <Dropdown menu={{ items }}>
                 <UserProfileIconContainer>
-                  <UserProfileIcon />
+                  <UserProfileIcon height={'100px'} width={'100px'} />
                 </UserProfileIconContainer>
               </Dropdown>
             </>

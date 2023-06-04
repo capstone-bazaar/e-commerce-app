@@ -43,7 +43,7 @@ const Header = styled.div`
   font-weight: 800;
   margin-bottom: 27px;
 `;
-const Text = styled.text`
+const Text = styled.p`
   font-size: 20px;
   font-weight: 300;
   display: block;

@@ -2,17 +2,11 @@ import styled from 'styled-components';
 
 import { Button } from '../Buttons/Button';
 
-import SelectField from '../Input/SelectField';
-
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { OrderInterface } from '../Orders/index';
 
-import {
-  SHIPMENT_STATES,
-  SHIPMENT_STATUSES,
-  rateOptions,
-} from '../../utils/constants';
+import { SHIPMENT_STATES, SHIPMENT_STATUSES } from '../../utils/constants';
 import { Tag } from 'antd';
 import { Input } from '../Input/Input';
 import { useState } from 'react';
@@ -70,10 +64,7 @@ const ProductTitle = styled.div`
   font-size: 14px;
   font-weight: 600;
 `;
-const TrackingNumber = styled.div`
-  font-size: 14px;
-  font-weight: 200;
-`;
+
 const InfoSection = styled.div`
   display: flex;
   justify-content: center;
