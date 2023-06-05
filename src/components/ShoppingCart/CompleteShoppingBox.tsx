@@ -60,8 +60,9 @@ export default function CompleteShoppingBox({
       });
 
       navigate('/orders?payment_success=true');
-    } catch (error) {
-      toast.error('Something went wrong, please try again', {
+      //eslint-disable-next-line
+    } catch (error: any) {
+      toast.error(error.message, {
         position: 'top-center',
         hideProgressBar: false,
         closeOnClick: true,

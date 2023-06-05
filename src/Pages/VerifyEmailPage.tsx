@@ -68,8 +68,8 @@ export default function VerifyEmailPage() {
                 verified. You can now proceed to the login page to access your
                 account.
               </TextWrapper>
-              <Link style={{ width: '100%' }} to={'/login'}>
-                <Button style={{ width: '100%' }}>Go to Login Page</Button>
+              <Link style={{ width: '100%' }} to={'/'}>
+                <Button style={{ width: '100%' }}>Go to Main Page</Button>
               </Link>
             </VerifyLinkContainer>
           )}
